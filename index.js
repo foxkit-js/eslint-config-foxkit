@@ -6,7 +6,8 @@ const config = {
   languageOptions: {
     ecmaVersion: 2022,
     globals: {
-      ...globals["shared-node-browser"]
+      ...globals.nodeBuiltin,
+      ...globals.browser
     }
   }
 };

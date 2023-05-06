@@ -1,6 +1,6 @@
-import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import base from "./rules/ts.js";
+import strict from "./rules/ts-strict.js";
 
 const config = {
   files: ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"],
@@ -10,9 +10,6 @@ const config = {
       sourceType: "module",
       warnOnUnsupportedTypeScriptVersion: true
     }
-  },
-  plugins: {
-    "@typescript-eslint": tsPlugin
   }
 };
 
@@ -20,6 +17,10 @@ export default {
   recommended: {
     ...config,
     ...base
+  },
+  strict: {
+    ...config,
+    ...strict
   },
   configureRoot(root) {
     return {
@@ -40,5 +41,4 @@ export default {
       }
     };
   }
-  // TODO: ,strict
 };
