@@ -6,7 +6,7 @@ export default {
     "no-await-in-promise": promisePlugin
   },
   rules: {
-    ...js.recommended.rules,
+    ...js.configs.recommended.rules,
     "no-unused-vars": ["warn", { varsIgnorePattern: "^_+" }],
     "no-undef": "error",
     "no-fallthrough": ["error", { commentPattern: "break[\\s\\w]*omitted" }],
