@@ -64,6 +64,14 @@
     "eslint": ">=8.39.0",
     "eslint-plugin-no-await-in-promise": ">=1.1.0"
   },
+  "peerDependenciesMeta": {
+    "@typescript-eslint/eslint-plugin": {
+      "optional": true
+    },
+    "@typescript-eslint/parser": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=16"
   }
