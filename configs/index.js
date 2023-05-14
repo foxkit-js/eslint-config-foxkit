@@ -1,6 +1,6 @@
 import globals from "globals";
-import baseRules from "./rules/base.js";
-import strictRules from "./rules/strict.js";
+import baseRules from "../rules/base.js";
+import strictRules from "../rules/strict.js";
 
 const config = {
   languageOptions: {
