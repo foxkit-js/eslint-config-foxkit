@@ -20,9 +20,15 @@ import foxkit from "eslint-config-foxkit";
 export default [foxkit.recommended];
 ```
 
-**Note:** This config file must be ESM. You may have to name the config file like `eslint.config.mjs` if your project does not have `"type": "module"` set in package.json.
-
 You may also add other configs on top, such as the one for any frameworks you may be using or [prettier], as well as your own overrides.
+
+**Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit")` instead. All exports of this package are dual-published with esbuild.
+
+```js
+const foxkit = require("eslint-config-foxkit");
+
+module.exports = [foxkit.recommended];
+```
 
 ### Configs
 
@@ -93,7 +99,7 @@ Alternatively you may use `foxkitTS.configureProject` if you know what you are d
 
 - Upgrade to at least `eslint@8.40.0`
 - Install `eslint-plugin-no-await-in-promise` or auto-install peerDeps
-- Convert your `.eslintrc.js` to a ESM [Flat Config] using `foxkit.strict` (and `foxkitTS.strict` as applicable)
+- Convert your `.eslintrc.js` to a [Flat Config] using `foxkit.strict` (and `foxkitTS.strict` as applicable)
 - **TEMP**: If needed setup up `eslint-plugin-react` as per their docs with the following rules:
 
 ```js
