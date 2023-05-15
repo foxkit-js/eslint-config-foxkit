@@ -95,11 +95,24 @@ Alternatively you may use `foxkitTS.configureProject` if you know what you are d
 
 **TBD**
 
+## Note for VSCode
+
+As of right now the [ESLint plugin available for VSCode](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) has experimental support for [Flat Config] hidden behind a setting. In your project simply create a `.vscode` directory with a `settings.json` file with the following content (or add to it if you already have one):
+
+```json
+{
+  "eslint.experimental.useFlatConfig": true
+}
+```
+
+This enables the setting on a workspace-level, so when switching between projects the setting remains disabled for projects using the old config system. Also note that the `.mjs` and `.cjs` extensions may not get picked up correctly, so your config file should always be called `eslint.config.js`.
+
 ## Migrating from v2
 
 - Upgrade to at least `eslint@8.40.0`
 - Install `eslint-plugin-no-await-in-promise` or auto-install peerDeps
 - Convert your `.eslintrc.js` to a [Flat Config] using `foxkit.strict` (and `foxkitTS.strict` as applicable)
+- See Section above about VSCode extension settings
 - **TEMP**: If needed setup up `eslint-plugin-react` as per their docs with the following rules:
 
 ```js
