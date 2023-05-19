@@ -10,32 +10,57 @@ Install with your package manager of choice:
 pnpm add --save-dev eslint eslint-config-foxkit eslint-plugin-no-await-in-promise
 ```
 
-## Usage (JavaScript Base Configs)
+## Usage
 
 Add a [Flat Config] in your project like this:
 
 ```js
 import foxkit from "eslint-config-foxkit";
 
-export default [foxkit.recommended];
+export default [foxkit.configure()];
 ```
 
-You may also add other configs on top, such as the one for any frameworks you may be using or [prettier], as well as your own overrides.
+You may also add other configs on top, such as [prettier], as well as your own overrides.
 
 **Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit")` instead. All exports of this package are dual-published with esbuild.
 
 ```js
 const foxkit = require("eslint-config-foxkit");
 
-module.exports = [foxkit.recommended];
+module.exports = [foxkit.configure()];
 ```
 
-### Configs
+### Options
 
-Currently there are two base configurations available:
+Options are passed as an object like `foxkit.configure({ strict: true })`.
 
-- `foxkit.recommended` extends the recommendations by ESLint with very few changes (such as enabling `no-undef` and adding eslint-plugin-no-await-in-promise).
-- `foxkit.strict` further extends `foxkit.recommended` (read: you only need one of the two in your config) with various other stylistic rules to encourage cleaner code and usage of newer syntax.
+- `strict` Set to `true` include the strict ruleset which helps achieve opinionated codestyle choices (was the default prior to v3.x)
+- `setGlobals` Set to `false` to disable setting globals (nodeBuiltin + browser) so you can configure them yourself
+- `ecmaVersion` override the ecmaVersion parameter (default: 2022)
+- `configOnly` Only configure languageOptions and include eslint's recommended ruleset. Does NOT configure the no-await-in-promise plugin!
+
+### Usage with other base configs
+
+Alternatively you can access the rulesets in the `foxkit.rules` object. If you are already using a base config like from your project's framework you may want to add a customized config object with our rules as well as the `no-await-in-promise` plugin like this:
+
+```js
+import framework from "@framework/eslint-config";
+import foxkit from "eslint-config-foxkit";
+import * as promisePlugin from "eslint-plugin-no-await-in-promise";
+
+export default [
+  framework,
+  {
+    plugins: {
+      "no-await-in-promise": promisePlugin
+    },
+    rules: {
+      ...foxkit.rules.recommended,
+      ...foxkit.rules.strict
+    }
+  }
+];
+```
 
 ## Usage with TypeScript
 
@@ -55,7 +80,9 @@ import foxkitTS from "eslint-config-foxkit/typescript";
 const __dirname = new URL(".", import.meta.url).pathname;
 
 export default [
-  foxkit.strict, // or foxkit.recommended
+  foxkit.configure({
+    /* any options here */
+  }),
   foxkitTS.configure({ tsconfigRootPath: __dirname })
 ];
 ```
@@ -74,10 +101,6 @@ Alternatively you can access the rulesets in the `foxkitTS.rules` object. Note t
 **TBD**
 
 ### Preact
-
-**TBD**
-
-## Full examples
 
 **TBD**
 

@@ -3,4 +3,8 @@ import foxkit from "./configs/index.js";
 
 prettier;
 
-export default [{ ignores: ["dist/**"] }, foxkit.strict, prettier];
+export default [
+  { ignores: ["dist/**"] },
+  foxkit.configure({ strict: true }),
+  prettier
+];
