@@ -45,43 +45,29 @@ Set up either JavaScript base config as seen above and then install the followin
 pnpm add --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
-Now add `foxkitTS from "eslint-config-foxkit/typescript"` to your ESLint config like this:
+Now add `foxkitTS` to your ESLint config like this:
 
 ```js
 import foxkit from "eslint-config-foxkit";
 import foxkitTS from "eslint-config-foxkit/typescript";
 
-export default [
-  foxkit.strict, // or foxkit.recommended
-  foxkitTS.recommended
-];
-```
-
-### Configs
-
-Similary to the base configs the TypeScript addon config comes in two varieties:
-
-- `foxkitTS.recommended` sets up the [typescript-eslint] parser and plugin and enables their recommendations with few overrides
-- `foxkitTS.strict` further extends `foxkitTS.recommended` (read: like above, you only need one of the two in your config) with rules to encourage typesafe and clean code, as well as using type imports/exports wherever possible to reduce bundle size in frameworks such as Next.js which blindly bundle unused imports.
-
-### `foxkitTS.strict` setup step
-
-The strict config uses rules that use typechecking during the lint step. This requires a setup function:
-
-```js
-import foxkit from "eslint-config-foxkit";
-import foxkitTS from "eslint-config-foxkit/typescript";
-
+// This line is only required in ES Module projects:
 const __dirname = new URL(".", import.meta.url).pathname;
 
 export default [
   foxkit.strict, // or foxkit.recommended
-  foxkitTS.configureRoot(__dirname)
-  foxkitTS.strict
-]
+  foxkitTS.configure({ tsconfigRootPath: __dirname })
+];
 ```
 
-Alternatively you may use `foxkitTS.configureProject` if you know what you are doing and prefer this method.
+### Options
+
+- `project`: parameter as per [typescript-eslint] docs
+- `tsconfigRootPath`: parameter as per [typescript-eslint] docs
+- `strict`: Set to `true` to include strict ruleset (contains rules that require typechecking and some opinionated rule choices)
+- `configOnly`: Set to `true` to only set up [typescript-eslint] (includes overrides for eslint's recommended rules that are handled by TypeScript)
+
+Alternatively you can access the rulesets in the `foxkitTS.rules` object. Note that you will need to configure the parserOptions to use the strict ruleset.
 
 ## Usage with React
 
