@@ -67,6 +67,7 @@
     "clean-publish": "^4.2.0",
     "esbuild": "^0.17.19",
     "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-no-await-in-promise": "^1.1.3",
     "nano-staged": "^0.8.0",
     "prettier": "^2.8.8",

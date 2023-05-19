@@ -1,3 +1,6 @@
+import prettier from "eslint-config-prettier";
 import foxkit from "./configs/index.js";
 
-export default [foxkit.strict];
+prettier;
+
+export default [{ ignores: ["dist/**"] }, foxkit.strict, prettier];

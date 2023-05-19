@@ -112,6 +112,7 @@ This enables the setting on a workspace-level, so when switching between project
 - Upgrade to at least `eslint@8.40.0`
 - Install `eslint-plugin-no-await-in-promise` or auto-install peerDeps
 - Convert your `.eslintrc.js` to a [Flat Config] using `foxkit.strict` (and `foxkitTS.strict` as applicable)
+- ignore paths are no longer set by default, add your own in a config object containing the "ignores" key (array of paths to ignore). Example: `{ ignores: ["dist/**"] }`
 - See Section above about VSCode extension settings
 - **TEMP**: If needed setup up `eslint-plugin-react` as per their docs with the following rules:
 
