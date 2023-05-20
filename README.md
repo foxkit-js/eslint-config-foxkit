@@ -128,6 +128,7 @@ export default [
 - `jsxRuntime` Set to `true` when using jsx runtime
 - `preact` Set to `true` when using Preact
 - `jsxA11y` Set to `false` to disable jsx-a11y plugin rules
+- `configOnly` Set to `true` to disable adding non-vital rules. This option does not prevent adding the rules for Preact and the jsx runtime. While the jsx-a11y plugin will still be added to the config, no rules will be added.
 
 Alternatively you can access the rulesets in the `foxkitTS.rules` object. Note that you will need to configure the plugins manually.
 
