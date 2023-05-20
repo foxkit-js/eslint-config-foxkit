@@ -64,7 +64,7 @@ export default [
 
 ## Usage with TypeScript
 
-Set up either JavaScript base config as seen above and then install the following peerDependencies with your package manager of choice:
+Set up JavaScript base configs as seen above and then install the following peerDependencies with your package manager of choice:
 
 ```bash
 pnpm add --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
@@ -83,7 +83,10 @@ export default [
   foxkit.configure({
     /* any options here */
   }),
-  foxkitTS.configure({ tsconfigRootPath: __dirname })
+  foxkitTS.configure({
+    tsconfigRootPath: __dirname
+    /* any other options here */
+  })
 ];
 ```
 
@@ -96,13 +99,37 @@ export default [
 
 Alternatively you can access the rulesets in the `foxkitTS.rules` object. Note that you will need to configure the parserOptions to use the strict ruleset.
 
-## Usage with React
+## Usage with React/Preact
 
-**TBD**
+Set up JavaScript base configs (and optionally TypeScript configs) as seen above and then install the following peerDependencies with your package manager of choice:
 
-### Preact
+```bash
+pnpm add --save-dev eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y
+```
 
-**TBD**
+Now add `foxkitReact` to your ESLint config like this:
+
+```js
+import foxkit from "eslint-config-foxkit";
+import foxkitReact from "eslint-config-foxkit/react";
+
+export default [
+  foxkit.configure({
+    /* any options here */
+  }),
+  foxkitReact.configure({
+    /* any options here */
+  })
+];
+```
+
+### Options
+
+- `jsxRuntime` Set to `true` when using jsx runtime
+- `preact` Set to `true` when using Preact
+- `jsxA11y` Set to `false` to disable jsx-a11y plugin rules
+
+Alternatively you can access the rulesets in the `foxkitTS.rules` object. Note that you will need to configure the plugins manually.
 
 ## Note for VSCode
 
@@ -120,23 +147,9 @@ This enables the setting on a workspace-level, so when switching between project
 
 - Upgrade to at least `eslint@8.40.0`
 - Install `eslint-plugin-no-await-in-promise` or auto-install peerDeps
-- Convert your `.eslintrc.js` to a [Flat Config] using `foxkit.strict` (and `foxkitTS.strict` as applicable)
+- Convert your `.eslintrc.js` to a [Flat Config] using strict rulesets enabled (these were previously the default)
 - ignore paths are no longer set by default, add your own in a config object containing the "ignores" key (array of paths to ignore). Example: `{ ignores: ["dist/**"] }`
 - See Section above about VSCode extension settings
-- **TEMP**: If needed setup up `eslint-plugin-react` as per their docs with the following rules:
-
-```js
-{
-  ...react.configs.recommended.rules,
-  "react/react-in-jsx-scope": "off", // for jsx-runtime
-  "react/jsx-uses-react": "off", // for jsx-runtime
-  "react/prop-types": "off",
-  "react/jsx-filename-extension": ["error", { extensions: [".jsx" ,".tsx"] }]
-}
-```
-
-- Support for React is not yet migrated and will be included as `"eslint-plugin-foxkit/react"` in the future
-- Support for Preact is not yet migrated and will be included as `"eslint-plugin-foxkit/preact"` in the future
 - Don't forget to add the config for [prettier] as the final element of your config array
 
 [Flat Config]: (https://eslint.org/docs/latest/use/configure/configuration-files-new)

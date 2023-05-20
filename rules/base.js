@@ -9,5 +9,6 @@ export const recommendedRules = {
   "no-undef": "error",
   "no-fallthrough": ["error", { commentPattern: "break[\\s\\w]*omitted" }],
   "no-return-await": "warn",
-  "no-await-in-promise/no-await-in-promise": "warn"
+  "no-await-in-promise/no-await-in-promise": "warn",
+  "no-with": "error"
 };

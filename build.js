@@ -2,7 +2,7 @@ import { rm } from "fs/promises";
 import * as esbuild from "esbuild";
 
 const config = {
-  entryPoints: ["configs/index.js", "configs/ts.js"],
+  entryPoints: ["configs/index.js", "configs/ts.js", "configs/react.js"],
   bundle: true,
   platform: "node",
   packages: "external",
