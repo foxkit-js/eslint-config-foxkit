@@ -77,7 +77,7 @@ import foxkit from "eslint-config-foxkit";
 import foxkitTS from "eslint-config-foxkit/typescript";
 
 // This line is only required in ES Module projects:
-const __dirname = new URL(".", import.meta.url).pathname;
+const __dirname = new URL(".", import.meta.url).pathname.slice(0, -1);
 
 export default [
   foxkit.configure({
