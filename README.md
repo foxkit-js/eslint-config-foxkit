@@ -84,7 +84,7 @@ export default [
     /* any options here */
   }),
   foxkitTS.configure({
-    tsconfigRootPath: __dirname
+    tsconfigRootDir: __dirname
     /* any other options here */
   })
 ];
@@ -93,7 +93,7 @@ export default [
 ### Options
 
 - `project`: parameter as per [typescript-eslint] docs
-- `tsconfigRootPath`: parameter as per [typescript-eslint] docs
+- `tsconfigRootDir`: parameter as per [typescript-eslint] docs
 - `strict`: Set to `true` to include strict ruleset (contains rules that require typechecking and some opinionated rule choices)
 - `configOnly`: Set to `true` to only set up [typescript-eslint] (includes overrides for eslint's recommended rules that are handled by TypeScript)
 
