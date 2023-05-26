@@ -6,5 +6,8 @@
   "commitMessageAction": "update:",
   "commitMessageTopic": "{{depName}}",
   "schedule": ["on monday"],
-  "timezone": "Europe/Berlin"
+  "timezone": "Europe/Berlin",
+  "semanticCommits": "disabled",
+  "postUpdateOptions": ["pnpmDedupe"],
+  "branchTopic": "{{{depNameSanitized}}}-{{{newMajor}}}{{#if separateMinorPatch}}{{#if isPatch}}.{{{newMinor}}}{{/if}}{{/if}}.x"
 }
