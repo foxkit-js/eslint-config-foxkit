@@ -12,8 +12,12 @@
   "branchTopic": "{{{depNameSanitized}}}-{{{newMajor}}}{{#if separateMinorPatch}}{{#if isPatch}}.{{{newMinor}}}{{/if}}{{/if}}.x",
   "packageRules": [
     {
-      "matchPackagePatterns": ["eslint"],
+      "matchPackagePatterns": ["^@?eslint"],
       "groupName": "eslint"
+    },
+    {
+      "matchPackagePatterns": ["^@typescript-eslint"],
+      "groupName": "typescript-eslint"
     }
   ]
 }
