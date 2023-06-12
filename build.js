@@ -7,7 +7,8 @@ const config = {
   platform: "node",
   packages: "external",
   outdir: "dist",
-  minify: false
+  minify: false,
+  target: "node16"
 };
 
 async function main() {
