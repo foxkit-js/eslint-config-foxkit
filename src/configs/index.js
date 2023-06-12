@@ -54,19 +54,5 @@ module.exports = {
     }
 
     return configuredConfig;
-  },
-  rules: {
-    /**
-     * Contains eslint's recommended rules from the `@eslint/js` package
-     */
-    base: baseRules,
-    /**
-     * Contains our recommended ruleset to avoid errors as well as the no-await-in-promise plugin
-     */
-    recommended: recommendedRules,
-    /**
-     * Contains our strict ruleset helping achieve opinionated codestyle choices (was the default prior to v3.x)
-     */
-    strict: strictRules
   }
 };

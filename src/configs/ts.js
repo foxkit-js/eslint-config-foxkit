@@ -78,19 +78,5 @@ module.exports = {
     }
 
     return configuredConfig;
-  },
-  rules: {
-    /**
-     * Contains typescript-eslint's overrides for eslint's recommended rules that are already handled by TypeScript
-     */
-    base: baseRules,
-    /**
-     * Contains slightly modified version of typescript-eslint's recommended ruleset
-     */
-    recommended: recommendedRules,
-    /**
-     * Contains strict ruleset, which contains some rules with typechecking! See typescript-eslint's docs for more Information.
-     */
-    strict: strictRules
   }
 };

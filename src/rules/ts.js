@@ -3,9 +3,16 @@ const tsPlugin = require("@typescript-eslint/eslint-plugin");
 const [eslintRecommended] = tsPlugin.configs["eslint-recommended"].overrides;
 const tsRecommended = tsPlugin.configs.recommended;
 
+/**
+ * Contains typescript-eslint's overrides for eslint's recommended rules that are already handled by TypeScript
+ */
 module.exports.baseRules = {
   ...eslintRecommended.rules
 };
+
+/**
+ * Contains slightly modified version of typescript-eslint's recommended ruleset
+ */
 module.exports.recommendedRules = {
   ...tsRecommended.rules,
   "prefer-const": "warn", // warn is good enough

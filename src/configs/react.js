@@ -75,27 +75,5 @@ module.exports = {
     }
 
     return configuredConfig;
-  },
-  rules: {
-    /**
-     * Base ruleset required to make JSX and hooks work with ESLint
-     */
-    base: baseRules,
-    /**
-     * Our recommended ruleset based on the recommended rulesets by the react plugin
-     */
-    recommended: recommendedRules,
-    /**
-     * Ruleset for usage with the jsx runtime
-     */
-    jsxRuntime: reactPlugin.configs["jsx-runtime"].rules,
-    /**
-     * Compatibility ruleset for usage with Preact
-     */
-    preact: preactRules,
-    /**
-     * Recommended ruleset from the jsx-a11y plugin
-     */
-    jsxA11y: jsxA11yPlugin.configs.recommended.rules
   }
 };
