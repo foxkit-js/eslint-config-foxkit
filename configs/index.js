@@ -1,9 +1,9 @@
-import * as promisePlugin from "eslint-plugin-no-await-in-promise";
-import globals from "globals";
-import { baseRules, recommendedRules } from "../rules/base.js";
-import { strictRules } from "../rules/strict.js";
+const promisePlugin = require("eslint-plugin-no-await-in-promise");
+const globals = require("globals");
+const { baseRules, recommendedRules } = require("../rules/base.js");
+const { strictRules } = require("../rules/strict.js");
 
-export default {
+module.exports = {
   /**
    * Configure JavaScript languageOptions, globals and rules.
    *

@@ -1,6 +1,6 @@
-import reactPlugin from "eslint-plugin-react";
+const reactPlugin = require("eslint-plugin-react");
 
-export const baseRules = {
+module.exports.baseRules = {
   "react/jsx-key": "error",
   "react/jsx-no-undef": "error",
   "react/jsx-uses-react": "error",
@@ -9,13 +9,13 @@ export const baseRules = {
   "react-hooks/exhaustive-deps": "warn"
 };
 
-export const recommendedRules = {
+module.exports.recommendedRules = {
   ...reactPlugin.configs.recommended.rules,
   "react/prop-types": "off",
   "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }]
 };
 
-export const preactRules = {
+module.exports.preactRules = {
   "react/no-did-mount-set-state": "error",
   "react/no-did-update-set-state": "error",
   "react/no-find-dom-node": "error",

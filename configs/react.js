@@ -1,9 +1,9 @@
-import reactPlugin from "eslint-plugin-react";
-import reactHooksPlugin from "eslint-plugin-react-hooks";
-import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
-import { baseRules, recommendedRules, preactRules } from "../rules/react";
+const reactPlugin = require("eslint-plugin-react");
+const reactHooksPlugin = require("eslint-plugin-react-hooks");
+const jsxA11yPlugin = require("eslint-plugin-jsx-a11y");
+const { baseRules, recommendedRules, preactRules } = require("../rules/react");
 
-export default {
+module.exports = {
   /**
    * Configure React/Preact languageOptions and rules for all *.jsx and *.tsx files
    *

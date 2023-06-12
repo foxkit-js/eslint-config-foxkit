@@ -1,10 +1,14 @@
-import prettier from "eslint-config-prettier";
-import foxkit from "./configs/index.js";
+const eslint = require("@eslint/js");
+const prettier = require("eslint-config-prettier");
+const foxkit = require("./configs/index.js");
 
-prettier;
-
-export default [
+module.exports = [
   { ignores: ["dist/**"] },
+  {
+    files: ["**/*.?(c)js"],
+    languageOptions: { sourceType: "commonjs" }
+  },
+  eslint.configs.recommended,
   foxkit.configure({ strict: true }),
   prettier
 ];

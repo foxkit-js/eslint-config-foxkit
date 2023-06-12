@@ -1,7 +1,7 @@
-import tsPlugin from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-import { baseRules, recommendedRules } from "../rules/ts.js";
-import { strictRules } from "../rules/ts-strict.js";
+const tsPlugin = require("@typescript-eslint/eslint-plugin");
+const tsParser = require("@typescript-eslint/parser");
+const { baseRules, recommendedRules } = require("../rules/ts.js");
+const { strictRules } = require("../rules/ts-strict.js");
 
 const config = {
   files: ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"],
@@ -17,7 +17,7 @@ const config = {
   }
 };
 
-export default {
+module.exports = {
   /**
    * Configure TypeScript languageOptions, parser and rules. Either `project` or `tsconfigRootDir` must be set. `project` will be set `true` if `tsconfigRootDir` is passed.
    *

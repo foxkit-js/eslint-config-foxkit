@@ -1,12 +1,12 @@
-import tsPlugin from "@typescript-eslint/eslint-plugin";
+const tsPlugin = require("@typescript-eslint/eslint-plugin");
 
 const [eslintRecommended] = tsPlugin.configs["eslint-recommended"].overrides;
 const tsRecommended = tsPlugin.configs.recommended;
 
-export const baseRules = {
+module.exports.baseRules = {
   ...eslintRecommended.rules
 };
-export const recommendedRules = {
+module.exports.recommendedRules = {
   ...tsRecommended.rules,
   "prefer-const": "warn", // warn is good enough
   "@typescript-eslint/ban-ts-comment": "off", // just no, refuse

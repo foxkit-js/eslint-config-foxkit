@@ -1,4 +1,4 @@
-export const strictRules = {
+module.exports.strictRules = {
   "prefer-const": "warn",
   "no-alert": "error",
   "no-else-return": "warn",

@@ -1,4 +1,4 @@
-export const strictRules = {
+module.exports.strictRules = {
   "@typescript-eslint/no-var-requires": "error",
   "@typescript-eslint/prefer-optional-chain": "warn",
   "@typescript-eslint/consistent-type-exports": [

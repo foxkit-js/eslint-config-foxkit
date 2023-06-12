@@ -1,10 +1,10 @@
-import js from "@eslint/js";
+const eslint = require("@eslint/js");
 
-export const baseRules = {
-  ...js.configs.recommended.rules
+module.exports.baseRules = {
+  ...eslint.configs.recommended.rules
 };
 
-export const recommendedRules = {
+module.exports.recommendedRules = {
   "no-unused-vars": ["warn", { varsIgnorePattern: "^_+" }],
   "no-undef": "error",
   "no-fallthrough": ["error", { commentPattern: "break[\\s\\w]*omitted" }],
