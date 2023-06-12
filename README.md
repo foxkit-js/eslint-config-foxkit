@@ -1,6 +1,6 @@
 # eslint-config-foxkit
 
-This package contains an opinionated set of configs for ESLint Flat Configuration setups.
+This package contains an opinionated set of configs for ESLint.
 
 ## Installation
 
@@ -10,7 +10,44 @@ Install with your package manager of choice:
 pnpm add --save-dev eslint eslint-config-foxkit eslint-plugin-no-await-in-promise
 ```
 
-## Usage
+## Usage with the Legacy Configuration System
+
+The following configs are available to use in your `"extends"` array:
+
+### JavaScript
+
+**Dependencies:** `@eslint/js eslint-plugin-no-await-in-promise`
+
+- `"foxkit"` - Base configuration for JavaScript projects with support for ESM and CJS
+- `"foxkit/strict"` - Stricter version of the base config with more opinionated and stylistic rule choices (this was the default in v2.x)
+
+### TypeScript
+
+**Dependencies:** `@typescript-eslint/parser @typescript-eslint/eslint-plugin`
+
+- `"foxkit/ts"` - Override configuration for TypeScript support. Uses overrides so JS configurations keep working.
+- `"foxkit/ts-strict"` - Stricter version of the TS override config with more opinionated rules. See [Linting with Type Information](https://typescript-eslint.io/linting/typed-linting) for required parserOptions.
+
+### React
+
+**Dependencies:** `eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y`
+
+- `"foxkit/react"` - Override configuration for adding JSX support in `.jsx` and `.tsx` files, as well as rules for hooks and accessibility
+- `"foxkit/preact"` - Alternative configuration for use with Preact.
+
+### Example:
+
+This example uses the non-strict configurations for JavaScript and TypeScript and also sets up React support:
+
+```json
+{
+  "extends": ["foxkit", "foxkit/ts", "foxkit/react"]
+}
+```
+
+You can also import/require only the rulesets from `eslint-config-foxkit/rules/` for a manual configuration.
+
+## Usage with Flat Configuration System
 
 Add a [Flat Config] in your project like this:
 
@@ -22,7 +59,7 @@ export default [foxkit.configure()];
 
 You may also add other configs on top, such as [prettier], as well as your own overrides.
 
-**Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit")` instead. All exports of this package are dual-published with esbuild.
+**Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit")` instead.
 
 ```js
 const foxkit = require("eslint-config-foxkit");
@@ -38,29 +75,6 @@ Options are passed as an object like `foxkit.configure({ strict: true })`.
 - `setGlobals` Set to `false` to disable setting globals (nodeBuiltin + browser) so you can configure them yourself
 - `ecmaVersion` override the ecmaVersion parameter (default: 2022)
 - `configOnly` Only configure languageOptions and include eslint's recommended ruleset. Does NOT configure the no-await-in-promise plugin!
-
-### Usage with other base configs
-
-Alternatively you can access the rulesets in the `foxkit.rules` object. If you are already using a base config like from your project's framework you may want to add a customized config object with our rules as well as the `no-await-in-promise` plugin like this:
-
-```js
-import framework from "@framework/eslint-config";
-import foxkit from "eslint-config-foxkit";
-import * as promisePlugin from "eslint-plugin-no-await-in-promise";
-
-export default [
-  framework,
-  {
-    plugins: {
-      "no-await-in-promise": promisePlugin
-    },
-    rules: {
-      ...foxkit.rules.recommended,
-      ...foxkit.rules.strict
-    }
-  }
-];
-```
 
 ## Usage with TypeScript
 
@@ -132,6 +146,30 @@ export default [
 
 Alternatively you can access the rulesets in the `foxkitTS.rules` object. Note that you will need to configure the plugins manually.
 
+## Usage with other base configurations
+
+Alternatively you can access the rulesets by importing from `eslint-config-foxkit/rules`. If you are already using a base config like from your project's framework you may want to add a customized config object with our rules as well as the `no-await-in-promise` plugin like this:
+
+```js
+import framework from "@framework/eslint-config";
+import { recommendedRules } from "eslint-config-foxkit/rules/base.js";
+import { strictRules } from "eslint-config-foxkit/rules/strict.js";
+import * as promisePlugin from "eslint-plugin-no-await-in-promise";
+
+export default [
+  framework,
+  {
+    plugins: {
+      "no-await-in-promise": promisePlugin
+    },
+    rules: {
+      ...recommendedRules,
+      ...strictRules
+    }
+  }
+];
+```
+
 ## Note for VSCode
 
 As of right now the [ESLint plugin available for VSCode](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) has experimental support for [Flat Config] hidden behind a setting. In your project simply create a `.vscode` directory with a `settings.json` file with the following content (or add to it if you already have one):
@@ -148,10 +186,9 @@ This enables the setting on a workspace-level, so when switching between project
 
 - Upgrade to at least `eslint@8.40.0`
 - Install `eslint-plugin-no-await-in-promise` or auto-install peerDeps
-- Convert your `.eslintrc.js` to a [Flat Config] using strict rulesets enabled (these were previously the default)
-- ignore paths are no longer set by default, add your own in a config object containing the "ignores" key (array of paths to ignore). Example: `{ ignores: ["dist/**"] }`
-- See Section above about VSCode extension settings
-- Don't forget to add the config for [prettier] as the final element of your config array
+- Switch from extending `"foxkit"` to `"foxkit/strict"`
+- Add `"plugin:react/jsx-runtime"` if needed
+- ignore paths are no longer set by default, add your own in a configuration or `.eslintignore` file
 
 [Flat Config]: (https://eslint.org/docs/latest/use/configure/configuration-files-new)
 [typescript-eslint]: (https://typescript-eslint.io/)
