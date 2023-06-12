@@ -3,13 +3,7 @@
   "version": "3.0.0-next",
   "description": "ESlint 9 compatible Configurations",
   "type": "commonjs",
-  "main": "configs/index.js",
-  "module": "configs/index.js",
-  "exports": {
-    ".": "./configs/index.js",
-    "./typescript": "./configs/ts.js",
-    "./react": "./configs/react.js"
-  },
+  "main": "src/index.js",
   "repository": "Mitsunee/eslint-config-foxkit",
   "author": "Mitsunee",
   "license": "MIT",
@@ -46,22 +40,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "main": "index.cjs",
-    "module": "index.js",
-    "exports": {
-      ".": {
-        "require": "./index.cjs",
-        "import": "./index.js"
-      },
-      "./typescript": {
-        "require": "./ts.cjs",
-        "import": "./ts.js"
-      },
-      "./react": {
-        "require": "./react.cjs",
-        "import": "./react.js"
-      }
-    }
+    "main": "index.js"
   },
   "dependencies": {
     "@eslint/js": "^8.42.0",
