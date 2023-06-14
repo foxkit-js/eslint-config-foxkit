@@ -3,9 +3,7 @@ const eslint = require("@eslint/js");
 /**
  * Contains eslint's recommended rules from the `@eslint/js` package
  */
-module.exports.baseRules = {
-  ...eslint.configs.recommended.rules
-};
+module.exports.baseRules = Object.assign({}, eslint.configs.recommended.rules);
 
 /**
  * Contains our recommended ruleset to avoid errors as well as the no-await-in-promise plugin

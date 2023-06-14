@@ -27,30 +27,27 @@ module.exports = {
       languageOptions: {
         jsx: true
       },
-      rules: { ...baseRules }
+      rules: Object.assign({}, baseRules)
     };
 
     if (!configOnly) {
-      configuredConfig.rules = {
-        ...configuredConfig.rules,
-        ...recommendedRules
-      };
+      Object.assign(configuredConfig.rules, recommendedRules);
     }
 
     if (jsxRuntime) {
-      configuredConfig.rules = {
-        ...configuredConfig.rules,
-        ...reactPlugin.configs["jsx-runtime"].rules
-      };
+      Object.assign(
+        configuredConfig.rules,
+        reactPlugin.configs["jsx-runtime"].rules
+      );
     }
 
     if (jsxA11y) {
       configuredConfig.plugins["jsx-a11y"] = jsxA11yPlugin;
       if (!configOnly) {
-        configuredConfig.rules = {
-          ...configuredConfig.rules,
-          ...jsxA11yPlugin.configs.recommended.rules
-        };
+        Object.assign(
+          configuredConfig.rules,
+          jsxA11yPlugin.configs.recommended.rules
+        );
       }
     }
 
@@ -62,10 +59,7 @@ module.exports = {
           version: "16.0"
         }
       };
-      configuredConfig.rules = {
-        ...configuredConfig.rules,
-        ...preactRules
-      };
+      Object.assign(configuredConfig.rules, preactRules);
     } else {
       configuredConfig.settings = {
         react: {

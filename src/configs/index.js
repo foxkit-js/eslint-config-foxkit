@@ -21,14 +21,16 @@ module.exports = {
     const configuredConfig = {
       languageOptions: {
         ecmaVersion
-      }
+      },
+      rules: Object.assign({}, baseRules, recommendedRules)
     };
 
     if (setGlobals) {
-      configuredConfig.languageOptions.globals = {
-        ...globals.nodeBuiltin,
-        ...globals.browser
-      };
+      configuredConfig.languageOptions.globals = Object.assign(
+        {},
+        globals.nodeBuiltin,
+        globals.browser
+      );
     }
 
     if (configOnly) {
@@ -41,16 +43,7 @@ module.exports = {
     };
 
     if (strict) {
-      configuredConfig.rules = {
-        ...baseRules,
-        ...recommendedRules
-      };
-    } else {
-      configuredConfig.rules = {
-        ...baseRules,
-        ...recommendedRules,
-        ...strictRules
-      };
+      Object.assign(configuredConfig.rules, strictRules);
     }
 
     return configuredConfig;

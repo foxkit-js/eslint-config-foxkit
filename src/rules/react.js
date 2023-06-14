@@ -15,11 +15,14 @@ module.exports.baseRules = {
 /**
  * Our recommended ruleset based on the recommended rulesets by the react plugin
  */
-module.exports.recommendedRules = {
-  ...reactPlugin.configs.recommended.rules,
-  "react/prop-types": "off",
-  "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }]
-};
+module.exports.recommendedRules = Object.assign(
+  {},
+  reactPlugin.configs.recommended.rules,
+  {
+    "react/prop-types": "off",
+    "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }]
+  }
+);
 
 /**
  * Compatibility ruleset for usage with Preact

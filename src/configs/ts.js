@@ -39,19 +39,13 @@ module.exports = {
       );
     }
 
-    const configuredConfig = {
-      ...config,
-      languageOptions: {
-        ...config.languageOptions,
-        parserOptions: {
-          ...config.languageOptions.parserOptions
-        }
-      }
-    };
-
-    if (project) {
-      configuredConfig.languageOptions.parserOptions.project = project;
-    }
+    // deep clone
+    const configuredConfig = Object.assign({}, config, {
+      rules: Object.assign({}, baseRules),
+      languageOptions: Object.assign({}, config.languageOptions, {
+        parserOptions: Object.assign({}, config.languageOptions.parserOptions)
+      })
+    });
 
     if (tsconfigRootDir) {
       configuredConfig.languageOptions.parserOptions.project = true;
@@ -59,22 +53,16 @@ module.exports = {
         tsconfigRootDir;
     }
 
-    if (configOnly) {
-      configuredConfig.rules = baseRules;
-      return configuredConfig;
+    if (project) {
+      configuredConfig.languageOptions.parserOptions.project = project;
     }
 
+    if (configOnly) return configuredConfig;
+
+    Object.assign(configuredConfig.rules, recommendedRules);
+
     if (strict) {
-      configuredConfig.rules = {
-        ...baseRules,
-        ...recommendedRules
-      };
-    } else {
-      configuredConfig.rules = {
-        ...baseRules,
-        ...recommendedRules,
-        ...strictRules
-      };
+      Object.assign(configuredConfig.rules, strictRules);
     }
 
     return configuredConfig;

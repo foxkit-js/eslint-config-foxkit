@@ -1,6 +1,6 @@
 const eslint = require("@eslint/js");
 const prettier = require("eslint-config-prettier");
-const foxkit = require("./configs/index.js");
+const foxkit = require("./src/configs/index.js");
 
 module.exports = [
   { ignores: ["dist/**"] },
