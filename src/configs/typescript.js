@@ -1,7 +1,7 @@
 const tsPlugin = require("@typescript-eslint/eslint-plugin");
 const tsParser = require("@typescript-eslint/parser");
-const { baseRules, recommendedRules } = require("../rules/ts.js");
-const { strictRules } = require("../rules/ts-strict.js");
+const { baseRules, recommendedRules } = require("../rules/typescript.js");
+const { strictRules } = require("../rules/typescript-strict.js");
 
 const config = {
   files: ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"],

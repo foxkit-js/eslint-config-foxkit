@@ -52,7 +52,7 @@ You can also import/require only the rulesets from `eslint-config-foxkit/rules/`
 Add a [Flat Config] in your project like this:
 
 ```js
-import foxkit from "eslint-config-foxkit/configs/index.js";
+import foxkit from "eslint-config-foxkit/configs/base.js";
 
 export default [
   foxkit.configure({
@@ -63,12 +63,16 @@ export default [
 
 You may also add other configs on top, such as [prettier], as well as your own overrides.
 
-**Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit/configs/index")` instead.
+**Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit/configs/base")` instead.
 
 ```js
-const foxkit = require("eslint-config-foxkit");
+const foxkit = require("eslint-config-foxkit/configs/base");
 
-module.exports = [foxkit.configure()];
+module.exports = [
+  foxkit.configure({
+    /* options here (see below) */
+  })
+];
 ```
 
 ### Options
@@ -89,7 +93,7 @@ pnpm add --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
 Now add `foxkitTS` to your ESLint config like this:
 
 ```js
-import foxkit from "eslint-config-foxkit/configs/index.js";
+import foxkit from "eslint-config-foxkit/configs/base.js";
 import foxkitTS from "eslint-config-foxkit/configs/ts.js";
 
 // This line is only required in ES Module projects:
@@ -124,7 +128,7 @@ pnpm add --save-dev eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-
 Now add `foxkitReact` to your ESLint config like this:
 
 ```js
-import foxkit from "eslint-config-foxkit/configs/index.js";
+import foxkit from "eslint-config-foxkit/configs/base.js";
 import foxkitReact from "eslint-config-foxkit/configs/react.js";
 
 export default [

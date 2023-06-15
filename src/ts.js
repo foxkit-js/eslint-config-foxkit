@@ -1,4 +1,4 @@
-const { baseRules, recommendedRules } = require("./rules/ts");
+const { baseRules, recommendedRules } = require("./rules/typescript");
 
 module.exports = {
   plugins: ["@typescript-eslint"],
