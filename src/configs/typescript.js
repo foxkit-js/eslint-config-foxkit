@@ -1,7 +1,7 @@
-import tsPlugin from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-import { baseRules, recommendedRules } from "../rules/ts.js";
-import { strictRules } from "../rules/ts-strict.js";
+const tsPlugin = require("@typescript-eslint/eslint-plugin");
+const tsParser = require("@typescript-eslint/parser");
+const { baseRules, recommendedRules } = require("../rules/typescript.js");
+const { strictRules } = require("../rules/typescript-strict.js");
 
 const config = {
   files: ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"],
@@ -17,7 +17,7 @@ const config = {
   }
 };
 
-export default {
+module.exports = {
   /**
    * Configure TypeScript languageOptions, parser and rules. Either `project` or `tsconfigRootDir` must be set. `project` will be set `true` if `tsconfigRootDir` is passed.
    *
@@ -39,19 +39,13 @@ export default {
       );
     }
 
-    const configuredConfig = {
-      ...config,
-      languageOptions: {
-        ...config.languageOptions,
-        parserOptions: {
-          ...config.languageOptions.parserOptions
-        }
-      }
-    };
-
-    if (project) {
-      configuredConfig.languageOptions.parserOptions.project = project;
-    }
+    // deep clone
+    const configuredConfig = Object.assign({}, config, {
+      rules: Object.assign({}, baseRules),
+      languageOptions: Object.assign({}, config.languageOptions, {
+        parserOptions: Object.assign({}, config.languageOptions.parserOptions)
+      })
+    });
 
     if (tsconfigRootDir) {
       configuredConfig.languageOptions.parserOptions.project = true;
@@ -59,38 +53,18 @@ export default {
         tsconfigRootDir;
     }
 
-    if (configOnly) {
-      configuredConfig.rules = baseRules;
-      return configuredConfig;
+    if (project) {
+      configuredConfig.languageOptions.parserOptions.project = project;
     }
 
+    if (configOnly) return configuredConfig;
+
+    Object.assign(configuredConfig.rules, recommendedRules);
+
     if (strict) {
-      configuredConfig.rules = {
-        ...baseRules,
-        ...recommendedRules
-      };
-    } else {
-      configuredConfig.rules = {
-        ...baseRules,
-        ...recommendedRules,
-        ...strictRules
-      };
+      Object.assign(configuredConfig.rules, strictRules);
     }
 
     return configuredConfig;
-  },
-  rules: {
-    /**
-     * Contains typescript-eslint's overrides for eslint's recommended rules that are already handled by TypeScript
-     */
-    base: baseRules,
-    /**
-     * Contains slightly modified version of typescript-eslint's recommended ruleset
-     */
-    recommended: recommendedRules,
-    /**
-     * Contains strict ruleset, which contains some rules with typechecking! See typescript-eslint's docs for more Information.
-     */
-    strict: strictRules
   }
 };

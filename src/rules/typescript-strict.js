@@ -1,4 +1,7 @@
-export const strictRules = {
+/**
+ * Contains strict ruleset, which contains some rules with typechecking! See typescript-eslint's docs for more Information.
+ */
+module.exports.strictRules = {
   "@typescript-eslint/no-var-requires": "error",
   "@typescript-eslint/prefer-optional-chain": "warn",
   "@typescript-eslint/consistent-type-exports": [

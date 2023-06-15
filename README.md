@@ -1,6 +1,6 @@
 # eslint-config-foxkit
 
-This package contains an opinionated set of configs for ESLint Flat Configuration setups.
+This package contains an opinionated set of configs for ESLint.
 
 ## Installation
 
@@ -10,57 +10,77 @@ Install with your package manager of choice:
 pnpm add --save-dev eslint eslint-config-foxkit eslint-plugin-no-await-in-promise
 ```
 
-## Usage
+## Usage with the Legacy Configuration System
+
+The following configs are available to use in your `"extends"` array:
+
+### JavaScript
+
+**Dependencies:** `@eslint/js eslint-plugin-no-await-in-promise`
+
+- `"foxkit"` - Base configuration for JavaScript projects with support for ESM and CJS
+- `"foxkit/strict"` - Stricter version of the base config with more opinionated and stylistic rule choices (this was the default in v2.x)
+
+### TypeScript
+
+**Dependencies:** `@typescript-eslint/parser @typescript-eslint/eslint-plugin`
+
+- `"foxkit/ts"` - Override configuration for TypeScript support. Uses overrides so JS configurations keep working.
+- `"foxkit/ts-strict"` - Stricter version of the TS override config with more opinionated rules. See [Linting with Type Information](https://typescript-eslint.io/linting/typed-linting) for required parserOptions.
+
+### React
+
+**Dependencies:** `eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y`
+
+- `"foxkit/react"` - Override configuration for adding JSX support in `.jsx` and `.tsx` files, as well as rules for hooks and accessibility
+- `"foxkit/preact"` - Alternative configuration for use with Preact.
+
+### Example:
+
+This example uses the non-strict configurations for JavaScript and TypeScript and also sets up React support:
+
+```json
+{
+  "extends": ["foxkit", "foxkit/ts", "foxkit/react"]
+}
+```
+
+You can also import/require only the rulesets from `eslint-config-foxkit/rules/` for a manual configuration.
+
+## Usage with Flat Configuration System
 
 Add a [Flat Config] in your project like this:
 
 ```js
-import foxkit from "eslint-config-foxkit";
+import foxkit from "eslint-config-foxkit/configs/base.js";
 
-export default [foxkit.configure()];
+export default [
+  foxkit.configure({
+    /* options here (see below) */
+  })
+];
 ```
 
 You may also add other configs on top, such as [prettier], as well as your own overrides.
 
-**Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit")` instead. All exports of this package are dual-published with esbuild.
+**Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit/configs/base")` instead.
 
 ```js
-const foxkit = require("eslint-config-foxkit");
+const foxkit = require("eslint-config-foxkit/configs/base");
 
-module.exports = [foxkit.configure()];
+module.exports = [
+  foxkit.configure({
+    /* options here (see below) */
+  })
+];
 ```
 
 ### Options
-
-Options are passed as an object like `foxkit.configure({ strict: true })`.
 
 - `strict` Set to `true` include the strict ruleset which helps achieve opinionated codestyle choices (was the default prior to v3.x)
 - `setGlobals` Set to `false` to disable setting globals (nodeBuiltin + browser) so you can configure them yourself
 - `ecmaVersion` override the ecmaVersion parameter (default: 2022)
 - `configOnly` Only configure languageOptions and include eslint's recommended ruleset. Does NOT configure the no-await-in-promise plugin!
-
-### Usage with other base configs
-
-Alternatively you can access the rulesets in the `foxkit.rules` object. If you are already using a base config like from your project's framework you may want to add a customized config object with our rules as well as the `no-await-in-promise` plugin like this:
-
-```js
-import framework from "@framework/eslint-config";
-import foxkit from "eslint-config-foxkit";
-import * as promisePlugin from "eslint-plugin-no-await-in-promise";
-
-export default [
-  framework,
-  {
-    plugins: {
-      "no-await-in-promise": promisePlugin
-    },
-    rules: {
-      ...foxkit.rules.recommended,
-      ...foxkit.rules.strict
-    }
-  }
-];
-```
 
 ## Usage with TypeScript
 
@@ -73,8 +93,8 @@ pnpm add --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
 Now add `foxkitTS` to your ESLint config like this:
 
 ```js
-import foxkit from "eslint-config-foxkit";
-import foxkitTS from "eslint-config-foxkit/typescript";
+import foxkit from "eslint-config-foxkit/configs/base.js";
+import foxkitTS from "eslint-config-foxkit/configs/ts.js";
 
 // This line is only required in ES Module projects:
 const __dirname = new URL(".", import.meta.url).pathname.slice(0, -1);
@@ -85,7 +105,7 @@ export default [
   }),
   foxkitTS.configure({
     tsconfigRootDir: __dirname
-    /* any other options here */
+    /* any other options here (see below) */
   })
 ];
 ```
@@ -96,8 +116,6 @@ export default [
 - `tsconfigRootDir`: parameter as per [typescript-eslint] docs
 - `strict`: Set to `true` to include strict ruleset (contains rules that require typechecking and some opinionated rule choices)
 - `configOnly`: Set to `true` to only set up [typescript-eslint] (includes overrides for eslint's recommended rules that are handled by TypeScript)
-
-Alternatively you can access the rulesets in the `foxkitTS.rules` object. Note that you will need to configure the parserOptions to use the strict ruleset.
 
 ## Usage with React/Preact
 
@@ -110,15 +128,15 @@ pnpm add --save-dev eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-
 Now add `foxkitReact` to your ESLint config like this:
 
 ```js
-import foxkit from "eslint-config-foxkit";
-import foxkitReact from "eslint-config-foxkit/react";
+import foxkit from "eslint-config-foxkit/configs/base.js";
+import foxkitReact from "eslint-config-foxkit/configs/react.js";
 
 export default [
   foxkit.configure({
     /* any options here */
   }),
   foxkitReact.configure({
-    /* any options here */
+    /* any options here (see below) */
   })
 ];
 ```
@@ -130,7 +148,29 @@ export default [
 - `jsxA11y` Set to `false` to disable jsx-a11y plugin rules
 - `configOnly` Set to `true` to disable adding non-vital rules. This option does not prevent adding the rules for Preact and the jsx runtime. While the jsx-a11y plugin will still be added to the config, no rules will be added.
 
-Alternatively you can access the rulesets in the `foxkitTS.rules` object. Note that you will need to configure the plugins manually.
+## Usage with other base configurations
+
+Alternatively you can access the rulesets by importing from `eslint-config-foxkit/rules`. If you are already using a base config like from your project's framework you may want to add a customized config object with our rules as well as the `no-await-in-promise` plugin like this:
+
+```js
+import framework from "@framework/eslint-config";
+import { recommendedRules } from "eslint-config-foxkit/rules/base.js";
+import { strictRules } from "eslint-config-foxkit/rules/strict.js";
+import * as promisePlugin from "eslint-plugin-no-await-in-promise";
+
+export default [
+  framework,
+  {
+    plugins: {
+      "no-await-in-promise": promisePlugin
+    },
+    rules: {
+      ...recommendedRules,
+      ...strictRules
+    }
+  }
+];
+```
 
 ## Note for VSCode
 
@@ -148,10 +188,9 @@ This enables the setting on a workspace-level, so when switching between project
 
 - Upgrade to at least `eslint@8.40.0`
 - Install `eslint-plugin-no-await-in-promise` or auto-install peerDeps
-- Convert your `.eslintrc.js` to a [Flat Config] using strict rulesets enabled (these were previously the default)
-- ignore paths are no longer set by default, add your own in a config object containing the "ignores" key (array of paths to ignore). Example: `{ ignores: ["dist/**"] }`
-- See Section above about VSCode extension settings
-- Don't forget to add the config for [prettier] as the final element of your config array
+- Switch from extending `"foxkit"` to `"foxkit/strict"`
+- Add `"plugin:react/jsx-runtime"` if needed
+- ignore paths are no longer set by default, add your own in a configuration or `.eslintignore` file
 
 [Flat Config]: (https://eslint.org/docs/latest/use/configure/configuration-files-new)
 [typescript-eslint]: (https://typescript-eslint.io/)

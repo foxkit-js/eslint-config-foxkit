@@ -1,4 +1,7 @@
-export const strictRules = {
+/**
+ * Contains our strict ruleset helping achieve opinionated codestyle choices (was the default prior to v3.x)
+ */
+module.exports.strictRules = {
   "prefer-const": "warn",
   "no-alert": "error",
   "no-else-return": "warn",

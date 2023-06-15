@@ -2,14 +2,8 @@
   "name": "eslint-config-foxkit",
   "version": "3.0.0-next",
   "description": "ESlint 9 compatible Configurations",
-  "type": "module",
-  "main": "configs/index.js",
-  "module": "configs/index.js",
-  "exports": {
-    ".": "./configs/index.js",
-    "./typescript": "./configs/ts.js",
-    "./react": "./configs/react.js"
-  },
+  "type": "commonjs",
+  "main": "src/index.js",
   "repository": "Mitsunee/eslint-config-foxkit",
   "author": "Mitsunee",
   "license": "MIT",
@@ -18,7 +12,7 @@
     "format": "prettier -w .",
     "lint": "eslint .",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
-    "build": "node build.js && clear-package-json package.json -o dist/package.json"
+    "build": "node build.mjs && clear-package-json package.json -o dist/package.json"
   },
   "nano-staged": {
     "**/*.{js,json,md}": [
@@ -46,22 +40,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "main": "index.cjs",
-    "module": "index.js",
-    "exports": {
-      ".": {
-        "require": "./index.cjs",
-        "import": "./index.js"
-      },
-      "./typescript": {
-        "require": "./ts.cjs",
-        "import": "./ts.js"
-      },
-      "./react": {
-        "require": "./react.cjs",
-        "import": "./react.js"
-      }
-    }
+    "main": "index.js"
   },
   "dependencies": {
     "@eslint/js": "^8.42.0",
