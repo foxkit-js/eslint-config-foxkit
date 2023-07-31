@@ -2,7 +2,7 @@
 
 This package contains an opinionated set of configs for ESLint.
 
-This repository is for the latest 3.x version of eslint-config-foxkit. See [https://github.com/Mitsunee/foxkit/tree/main/packages/eslint-config-foxkit](monorepo) for documentation on the 2.x version.
+This repository is for the latest 3.x version of eslint-config-foxkit. See [monorepo](https://github.com/Mitsunee/foxkit/tree/main/packages/eslint-config-foxkit) for documentation on the 2.x version.
 
 ## Installation
 
