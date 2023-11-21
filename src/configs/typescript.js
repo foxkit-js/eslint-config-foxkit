@@ -4,7 +4,7 @@ const { baseRules, recommendedRules } = require("../rules/typescript.js");
 const { strictRules } = require("../rules/typescript-strict.js");
 
 const config = {
-  files: ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"],
+  files: ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx", "**/*.astro"],
   plugins: {
     "@typescript-eslint": tsPlugin
   },

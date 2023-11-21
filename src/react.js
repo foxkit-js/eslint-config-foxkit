@@ -6,7 +6,7 @@ const config = {
   rules: Object.assign({}, baseRules, recommendedRules),
   overrides: [
     {
-      files: ["**/*.jsx", "**/*.tsx"],
+      files: ["**/*.jsx", "**/*.tsx", "**/*.astro"],
       env: { browser: true },
       parserOptions: {
         ecmaFeatures: { jsx: true }

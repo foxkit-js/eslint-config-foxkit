@@ -19,7 +19,7 @@ module.exports = {
     configOnly = false
   } = {}) {
     const configuredConfig = {
-      files: ["**/*.jsx", "**/*.tsx"],
+      files: ["**/*.jsx", "**/*.tsx", "**/*.astro"],
       plugins: {
         react: reactPlugin,
         "react-hooks": reactHooksPlugin

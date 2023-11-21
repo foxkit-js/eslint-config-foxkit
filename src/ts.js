@@ -4,7 +4,7 @@ module.exports = {
   plugins: ["@typescript-eslint"],
   overrides: [
     {
-      files: ["**/*.ts", "**/*.tsx"],
+      files: ["**/*.ts", "**/*.tsx", "**/*.astro"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
         sourceType: "module",
