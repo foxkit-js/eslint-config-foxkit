@@ -25,7 +25,11 @@ module.exports = {
         "react-hooks": reactHooksPlugin
       },
       languageOptions: {
-        jsx: true
+        parserOptions: {
+          ecmaFeatures: {
+            jsx: true
+          }
+        }
       },
       rules: Object.assign({}, baseRules)
     };
