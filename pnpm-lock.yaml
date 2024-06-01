@@ -37,8 +37,8 @@ importers:
         specifier: ^6.8.0
         version: 6.8.0(eslint@8.57.0)
       eslint-plugin-no-await-in-promise:
-        specifier: ^1.1.6
-        version: 1.1.6(eslint@8.57.0)
+        specifier: ^2.0.1
+        version: 2.0.1(eslint@8.57.0)
       eslint-plugin-react:
         specifier: ^7.34.2
         version: 7.34.2(eslint@8.57.0)
@@ -526,11 +526,11 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-no-await-in-promise@1.1.6:
-    resolution: {integrity: sha512-4oyWw+P63MdQdHstoELk0Z05xxt/dRxS1QRpM+JPizrFgQFtdJ+DjdhV4db0CsRHoZ/y8pneS2rG3Slio60u2w==}
-    engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
+  eslint-plugin-no-await-in-promise@2.0.1:
+    resolution: {integrity: sha512-gNmLWKAX8n6GI8XQs/+bNjkUH+eRTvK+zfYzl3tD0SKrrBt0Q0qfayBo1JtbJL7+aP4qAcqrz/yCroIZQfYQKw==}
+    engines: {node: ^18.17.0 || >= 20.0.0}
     peerDependencies:
-      eslint: '>=7'
+      eslint: '>=8'
 
   eslint-plugin-react-hooks@4.6.2:
     resolution: {integrity: sha512-QzliNJq4GinDBcD8gPB5v0wh6g8q3SUi6EFF0x8N/BL9PoVs0atuGc47ozMRyOWAKdwaZ5OnbOEa3WR+dSGKuQ==}
@@ -1747,7 +1747,7 @@ snapshots:
       object.entries: 1.1.8
       object.fromentries: 2.0.8
 
-  eslint-plugin-no-await-in-promise@1.1.6(eslint@8.57.0):
+  eslint-plugin-no-await-in-promise@2.0.1(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
 

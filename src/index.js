@@ -2,8 +2,8 @@ const { baseRules, recommendedRules } = require("./rules/base");
 
 const config = {
   plugins: ["no-await-in-promise"],
-  parserOptions: { ecmaVersion: 2022 },
-  env: { node: true, es2022: true },
+  parserOptions: { ecmaVersion: 2023 },
+  env: { node: true, es2023: true },
   rules: Object.assign({}, baseRules, recommendedRules),
   overrides: [
     {
