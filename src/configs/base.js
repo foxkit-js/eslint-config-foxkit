@@ -9,13 +9,13 @@ module.exports = {
    *
    * @param strict Set to `true` include the strict ruleset
    * @param setGlobals Set to `false` to disable setting globals (nodeBuiltin + browser) so you can configure them yourself
-   * @param ecmaVersion override the ecmaVersion parameter (default: 2022)
+   * @param ecmaVersion override the ecmaVersion parameter (default: 2023)
    * @param configOnly Only configure languageOptions and include eslint's recommended ruleset. Does NOT configure the no-await-in-promise plugin!
    */
   configure: function ({
     strict = false,
     setGlobals = true,
-    ecmaVersion = 2022,
+    ecmaVersion = 2023,
     configOnly = false
   } = {}) {
     const configuredConfig = {
