@@ -23,14 +23,10 @@
     "pre-commit": "pnpm nano-staged"
   },
   "files": [
-    "index.js",
-    "strict.js",
-    "react.js",
-    "preact.js",
-    "ts.js",
-    "ts-strict.js",
+    "*.js",
     "configs",
-    "rules"
+    "rules",
+    "LICENSE"
   ],
   "clean-publish": {
     "withoutPublish": true,

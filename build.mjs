@@ -1,7 +1,12 @@
-import { relative, join } from "path";
-import { rm, cp, readdir } from "fs/promises";
+import fs from "fs/promises";
+import path from "path";
 import * as esbuild from "esbuild";
 
+/**
+ * Build config for esbuild
+ * @typedef {import("esbuild").BuildOptions} BuildOptions
+ * @type {BuildOptions}
+ */
 const config = {
   bundle: false,
   platform: "node",
@@ -13,16 +18,100 @@ const config = {
 
 const __dirname = new URL(".", import.meta.url).pathname.slice(0, -1);
 
-async function discoverDirectory(dirPath) {
-  const dir = await readdir(dirPath);
-  return dir
-    .filter(str => str.endsWith(".js"))
-    .map(file => relative(__dirname, join(dirPath, file)));
+/**
+ * Removes old build directory and creates a fresh one
+ */
+async function handleClean() {
+  console.log("Cleaning");
+  await fs.rm(config.outdir, { recursive: true, force: true });
+  await fs.mkdir(config.outdir);
 }
 
-async function main() {
-  console.log("Cleaning");
-  await rm("dist", { recursive: true, force: true });
+/**
+ * finds all js files in a directory
+ */
+async function discoverDirectory(dirPath) {
+  const dir = await fs.readdir(dirPath);
+  return dir
+    .filter(str => str.endsWith(".js"))
+    .map(file => path.relative(__dirname, path.join(dirPath, file)));
+}
+
+async function handlePkgJson() {
+  const pkg = await fs
+    .readFile("package.json", "utf-8")
+    .then(file => JSON.parse(file));
+  if (typeof pkg != "object" || pkg === null) {
+    throw new Error("Could not read package.json");
+  }
+
+  console.log("Processing package.json");
+  const { publishConfig, "clean-publish": cleanPublish, ...pkgRest } = pkg;
+  const pkgProcessed = Object.assign({}, pkgRest, publishConfig);
+
+  // handle removing fields
+  const removeFields = ["devDependencies", ...cleanPublish.fields];
+  for (const field of removeFields) {
+    delete pkgProcessed[field];
+  }
+
+  return fs.writeFile(
+    path.join(config.outdir, "package.json"),
+    JSON.stringify(pkgProcessed, null, 2),
+    "utf-8"
+  );
+}
+
+/**
+ * Statically copy files to the outdir
+ * @typedef {string | [string, string]} File
+ * @typedef {File[]} Files
+ * @param {Files} files Array of files to copy to outdir. Use nested array to change filename such as ["foo.build.json", "foo.json"].
+ * @returns
+ */
+async function copyFiles(files) {
+  const res = await Promise.allSettled(
+    files.map(file => {
+      const [fileIn, fileOut] = Array.isArray(file) ? file : [file, file];
+      const outPath = path.join(config.outdir, fileOut);
+      console.log(`Copying ${fileIn} to ${outPath}`);
+      return fs.cp(fileIn, outPath, { force: true });
+    })
+  );
+
+  const err = res.find(r => r.status == "rejected");
+  if (err) {
+    throw new Error(`Error while copying files: ${err.reason}`);
+  }
+
+  return;
+}
+
+/**
+ * Handle build of CJS bundle
+ * @returns Promise
+ */
+function buildCJS(entryPoints) {
+  console.log("Building cjs bundles");
+  return esbuild.build({
+    ...config,
+    entryPoints,
+    format: "cjs",
+    footer: {
+      /**
+       * This is required for interoperability with default exports
+       * @see https://github.com/evanw/esbuild/issues/1182#issuecomment-1011414271
+       * Feel free to remove this if you are not using default exports
+       * and this is causing problems
+       */
+      js: "if (module.exports.default) module.exports = module.exports.default"
+    }
+  });
+}
+
+async function build() {
+  // Clean dist directory
+  await handleClean();
 
   console.log("Discovering source files");
   const dirs = await Promise.all([
@@ -32,16 +121,21 @@ async function main() {
   ]);
   const entryPoints = dirs.flat();
 
-  console.log("Building bundles");
-  await esbuild.build({
-    ...config,
-    entryPoints,
-    format: "cjs"
-  });
+  console.log("Starting build");
+  const res = await Promise.allSettled([
+    buildCJS(entryPoints),
+    copyFiles(["README.md", "LICENSE"]),
+    handlePkgJson()
+  ]);
 
-  console.log("Copying README.md");
-  await cp("./README.md", "dist/README.md", { force: true });
-  console.log("Completed");
+  // handle logging errors
+  const err = res.filter(r => r.status === "rejected");
+  for (const e of err) {
+    console.error(`BuildError: ${e.reason}`);
+  }
+  if (err.length > 0) process.exit(1);
 }
 
-main();
+build().then(() => {
+  console.log("Completed build");
+});
