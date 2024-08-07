@@ -29,7 +29,7 @@ module.exports.strictRules = {
   "@typescript-eslint/no-meaningless-void-operator": "error",
   "@typescript-eslint/no-mixed-enums": "error",
   "no-throw-literal": "off",
-  "@typescript-eslint/no-throw-literal": "error",
+  // "@typescript-eslint/no-throw-literal": "error", // removed in v8
   //"@typescript-eslint/no-unnecessary-condition": "warn",
   "@typescript-eslint/no-unnecessary-condition": "off", // see https://github.com/typescript-eslint/typescript-eslint/issues/6926
   "@typescript-eslint/no-unsafe-declaration-merging": "error",
