@@ -1,6 +1,5 @@
-const eslint = require("@eslint/js");
-const prettier = require("eslint-config-prettier");
 const foxkit = require("./src/configs/base");
+const prettier = require("eslint-config-prettier");
 
 module.exports = [
   { ignores: ["dist/**"] },
@@ -8,7 +7,6 @@ module.exports = [
     files: ["**/*.?(c)js"],
     languageOptions: { sourceType: "commonjs" }
   },
-  eslint.configs.recommended,
-  foxkit.configure({ strict: true }),
+  foxkit.configure(),
   prettier
 ];

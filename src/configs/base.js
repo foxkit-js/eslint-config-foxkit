@@ -1,49 +1,32 @@
 const promisePlugin = require("eslint-plugin-no-await-in-promise");
 const globals = require("globals");
-const { baseRules, recommendedRules } = require("../rules/base.js");
-const { strictRules } = require("../rules/strict.js");
+const baseRules = require("../rules/base.js");
 
 module.exports = {
   /**
    * Configure JavaScript languageOptions, globals and rules.
    *
-   * @param strict Set to `true` include the strict ruleset
-   * @param setGlobals Set to `false` to disable setting globals (nodeBuiltin + browser) so you can configure them yourself
+   * @param setGlobals Set to `false` to disable setting globals (node + browser) so you can configure them yourself
    * @param ecmaVersion override the ecmaVersion parameter (default: 2023)
-   * @param configOnly Only configure languageOptions and include eslint's recommended ruleset. Does NOT configure the no-await-in-promise plugin!
    */
-  configure: function ({
-    strict = false,
-    setGlobals = true,
-    ecmaVersion = 2023,
-    configOnly = false
-  } = {}) {
+  configure: function ({ setGlobals = true, ecmaVersion = 2023 } = {}) {
     const configuredConfig = {
       languageOptions: {
         ecmaVersion
       },
-      rules: Object.assign({}, baseRules, recommendedRules)
+      rules: Object.assign({}, baseRules),
+      plugins: {
+        "no-await-in-promise": promisePlugin
+      }
     };
 
     if (setGlobals) {
       configuredConfig.languageOptions.globals = Object.assign(
         {},
         globals.nodeBuiltin,
+        globals.node,
         globals.browser
       );
-    }
-
-    if (configOnly) {
-      configuredConfig.rules = baseRules;
-      return configuredConfig;
-    }
-
-    configuredConfig.plugins = {
-      "no-await-in-promise": promisePlugin
-    };
-
-    if (strict) {
-      Object.assign(configuredConfig.rules, strictRules);
     }
 
     return configuredConfig;

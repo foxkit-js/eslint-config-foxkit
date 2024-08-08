@@ -1,18 +1,20 @@
-const { baseRules, recommendedRules } = require("./rules/base");
+const baseRules = require("./rules/base");
 
 const config = {
   plugins: ["no-await-in-promise"],
   parserOptions: { ecmaVersion: 2023 },
   env: { node: true, es2023: true },
-  rules: Object.assign({}, baseRules, recommendedRules),
+  rules: baseRules,
   overrides: [
     {
       files: ["**/*.cjs"],
-      parserOptions: { sourceType: "script" }
+      parserOptions: { sourceType: "script" },
+      rules: baseRules
     },
     {
       files: ["**/*.mjs"],
-      parserOptions: { sourceType: "module" }
+      parserOptions: { sourceType: "module" },
+      rules: baseRules
     }
   ]
 };
