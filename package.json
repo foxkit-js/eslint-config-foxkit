@@ -63,6 +63,10 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "nano-staged": "^0.8.0",
     "prettier": "^3.3.3",
-    "simple-git-hooks": "^2.11.1"
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "~5.5.0"
+  },
+  "peerDependencies": {
+    "typescript": "~5.5.0"
   }
 }
