@@ -8,5 +8,7 @@ module.exports = [
     languageOptions: { sourceType: "commonjs" }
   },
   foxkit.base,
+  foxkit.typescript,
+  foxkit.configureTS({ tsconfigRootDir: __dirname }),
   prettier
 ];
