@@ -2,6 +2,7 @@ const reactPlugin = require("eslint-plugin-react");
 
 /**
  * Base ruleset required to make JSX and hooks work with ESLint
+ * @deprecated
  */
 module.exports.baseRules = {
   "react/jsx-key": "error",
@@ -14,6 +15,7 @@ module.exports.baseRules = {
 
 /**
  * Our recommended ruleset based on the recommended rulesets by the react plugin
+ * @deprecated
  */
 module.exports.recommendedRules = Object.assign(
   {},
@@ -26,6 +28,7 @@ module.exports.recommendedRules = Object.assign(
 
 /**
  * Compatibility ruleset for usage with Preact
+ * @deprecated
  */
 module.exports.preactRules = {
   "react/no-did-mount-set-state": "error",

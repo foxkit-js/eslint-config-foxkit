@@ -3,6 +3,9 @@ const reactHooksPlugin = require("eslint-plugin-react-hooks");
 const jsxA11yPlugin = require("eslint-plugin-jsx-a11y");
 const { baseRules, recommendedRules, preactRules } = require("../rules/react");
 
+/**
+ * @deprecated
+ */
 module.exports = {
   /**
    * Configure React/Preact languageOptions and rules for all *.jsx and *.tsx files

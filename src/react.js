@@ -1,5 +1,8 @@
 const { baseRules, recommendedRules } = require("./rules/react");
 
+/**
+ * @deprecated
+ */
 const config = {
   plugins: ["react", "react-hooks", "jsx-a11y"],
   extends: ["plugin:jsx-a11y/recommended"],
