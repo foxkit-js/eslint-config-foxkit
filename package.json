@@ -48,8 +48,8 @@
   },
   "dependencies": {
     "@eslint/js": "^8.57.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.1",
-    "@typescript-eslint/parser": "^8.0.1",
+    "@typescript-eslint/eslint-plugin": "~8.0.1",
+    "@typescript-eslint/parser": "~8.0.1",
     "eslint": "8.57.0",
     "eslint-plugin-no-await-in-promise": "^2.0.1",
     "globals": "^15.9.0"
