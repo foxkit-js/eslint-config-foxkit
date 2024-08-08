@@ -1,53 +1,14 @@
 # eslint-config-foxkit
 
-This package contains an opinionated set of configs for ESLint.
-
-This repository is for the latest 3.x version of eslint-config-foxkit. See [monorepo](https://github.com/Mitsunee/foxkit/tree/main/packages/eslint-config-foxkit) for documentation on the 2.x version.
+This package contains an opinionated set of base configs for ESLint and [typescript-eslint].
 
 ## Installation
 
 Install with your package manager of choice:
 
 ```bash
-pnpm add --save-dev eslint eslint-config-foxkit eslint-plugin-no-await-in-promise
+pnpm add --save-dev eslint-config-foxkit eslint@8.57.0 typescript
 ```
-
-## Usage with the Legacy Configuration System
-
-The following configs are available to use in your `"extends"` array:
-
-### JavaScript
-
-**Dependencies:** `@eslint/js eslint-plugin-no-await-in-promise`
-
-- `"foxkit"` - Base configuration for JavaScript projects with support for ESM and CJS
-- `"foxkit/strict"` - Stricter version of the base config with more opinionated and stylistic rule choices (this was the default in v2.x)
-
-### TypeScript
-
-**Dependencies:** `@typescript-eslint/parser @typescript-eslint/eslint-plugin`
-
-- `"foxkit/ts"` - Override configuration for TypeScript support. Uses overrides so JS configurations keep working.
-- `"foxkit/ts-strict"` - Stricter version of the TS override config with more opinionated rules. See [Linting with Type Information](https://typescript-eslint.io/linting/typed-linting) for required parserOptions.
-
-### React
-
-**Dependencies:** `eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y`
-
-- `"foxkit/react"` - Override configuration for adding JSX support in `.jsx` and `.tsx` files, as well as rules for hooks and accessibility
-- `"foxkit/preact"` - Alternative configuration for use with Preact.
-
-### Example:
-
-This example uses the non-strict configurations for JavaScript and TypeScript and also sets up React support:
-
-```json
-{
-  "extends": ["foxkit", "foxkit/ts", "foxkit/react"]
-}
-```
-
-You can also import/require only the rulesets from `eslint-config-foxkit/rules/` for a manual configuration.
 
 ## Usage with Flat Configuration System
 
@@ -56,122 +17,98 @@ Add a [Flat Config] in your project like this:
 ```js
 import foxkit from "eslint-config-foxkit/configs/base.js";
 
+// This line is only required in ES Module projects:
+const __dirname = new URL(".", import.meta.url).pathname.slice(0, -1);
+
 export default [
-  foxkit.configure({
-    /* options here (see below) */
-  })
+  foxkit.base,
+  foxkit.typescript,
+  foxkit.configureTS({ tsconfigRootDir: __dirname })
 ];
 ```
 
 You may also add other configs on top, such as [prettier], as well as your own overrides.
 
-**Note:** If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit/configs/base")` instead.
+### Usage in CommonJS projects
+
+If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit/configs/base")` instead.
 
 ```js
 const foxkit = require("eslint-config-foxkit/configs/base");
 
 module.exports = [
-  foxkit.configure({
-    /* options here (see below) */
-  })
+  foxkit.base,
+  foxkit.typescript,
+  foxkit.configureTS({ tsconfigRootDir: __dirname })
 ];
 ```
 
-### Options
-
-- `strict` Set to `true` include the strict ruleset which helps achieve opinionated codestyle choices (was the default prior to v3.x)
-- `setGlobals` Set to `false` to disable setting globals (nodeBuiltin + browser) so you can configure them yourself
-- `ecmaVersion` override the ecmaVersion parameter (default: 2022)
-- `configOnly` Only configure languageOptions and include eslint's recommended ruleset. Does NOT configure the no-await-in-promise plugin!
-
-## Usage with TypeScript
-
-Set up JavaScript base configs as seen above and then install the following peerDependencies with your package manager of choice:
-
-```bash
-pnpm add --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
-```
-
-Now add `foxkitTS` to your ESLint config like this:
-
-```js
-import foxkit from "eslint-config-foxkit/configs/base.js";
-import foxkitTS from "eslint-config-foxkit/configs/ts.js";
-
-// This line is only required in ES Module projects:
-const __dirname = new URL(".", import.meta.url).pathname.slice(0, -1);
-
-export default [
-  foxkit.configure({
-    /* any options here */
-  }),
-  foxkitTS.configure({
-    tsconfigRootDir: __dirname
-    /* any other options here (see below) */
-  })
-];
-```
-
-### Options
-
-- `project`: parameter as per [typescript-eslint] docs
-- `tsconfigRootDir`: parameter as per [typescript-eslint] docs
-- `strict`: Set to `true` to include strict ruleset (contains rules that require typechecking and some opinionated rule choices)
-- `configOnly`: Set to `true` to only set up [typescript-eslint] (includes overrides for eslint's recommended rules that are handled by TypeScript)
-
-## Usage with React/Preact
-
-Set up JavaScript base configs (and optionally TypeScript configs) as seen above and then install the following peerDependencies with your package manager of choice:
-
-```bash
-pnpm add --save-dev eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y
-```
-
-Now add `foxkitReact` to your ESLint config like this:
-
-```js
-import foxkit from "eslint-config-foxkit/configs/base.js";
-import foxkitReact from "eslint-config-foxkit/configs/react.js";
-
-export default [
-  foxkit.configure({
-    /* any options here */
-  }),
-  foxkitReact.configure({
-    /* any options here (see below) */
-  })
-];
-```
-
-### Options
-
-- `jsxRuntime` Set to `true` when using jsx runtime
-- `preact` Set to `true` when using Preact
-- `jsxA11y` Set to `false` to disable jsx-a11y plugin rules
-- `configOnly` Set to `true` to disable adding non-vital rules. This option does not prevent adding the rules for Preact and the jsx runtime. While the jsx-a11y plugin will still be added to the config, no rules will be added.
-
-## Usage with other base configurations
+### Usage with other base configurations
 
 Alternatively you can access the rulesets by importing from `eslint-config-foxkit/rules`. If you are already using a base config like from your project's framework you may want to add a customized config object with our rules as well as the `no-await-in-promise` plugin like this:
 
 ```js
 import framework from "@framework/eslint-config";
-import { recommendedRules } from "eslint-config-foxkit/rules/base.js";
-import { strictRules } from "eslint-config-foxkit/rules/strict.js";
 import * as promisePlugin from "eslint-plugin-no-await-in-promise";
+import foxkit from "eslint-config-foxkit/configs/base.js";
+import foxkitRules from "eslint-config-foxkit/rules/base.js";
+
+// This line is only required in ES Module projects:
+const __dirname = new URL(".", import.meta.url).pathname.slice(0, -1);
 
 export default [
   framework,
   {
-    plugins: {
-      "no-await-in-promise": promisePlugin
-    },
-    rules: {
-      ...recommendedRules,
-      ...strictRules
-    }
-  }
+    plugins: { "no-await-in-promise": promisePlugin },
+    rules: { ...foxkitRules }
+  },
+  foxkit.typescript,
+  foxkit.configureTS({ tsconfigRootDir: __dirname })
 ];
+```
+
+**Note**: If you are using a framework such as Astro or Svelte you may want to push the extension to the config object (this change is synced with the output from `foxkitConfigureTS`):
+
+```js
+foxkit.typescript.files.push("**/*.astro");
+```
+
+## Usage with the Legacy Configuration System
+
+Simply add `"foxkit"` to your extends array in your `.eslintrc.cjs` file and set up the parserOptions for [typescript-eslint]:
+
+```js
+module.exports = {
+  extends: ["foxkit"],
+  overrides: [
+    {
+      files: ["**/*.ts?(x)"],
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: __dirname
+      }
+    }
+  ]
+};
+```
+
+**Note**: Should you need to add a filetype to the typescript override you can import the config and search for the override using the [typescript-eslint] parser:
+
+````js
+const foxkit = require("eslint-config-foxkit");
+
+const foxkitTS = foxkit.overrides.find(override => override.parser == "@typescript-eslint/parser");
+foxkitTS.files.push("**/*.astro");
+
+module.exports = {
+  extends: ["foxkit"],
+  overrides: [
+    {
+      // see above
+    },
+    foxkitTS // re-insert patched version of the override
+  ]
+}
 ```
 
 ## Note for VSCode
@@ -182,17 +119,19 @@ As of right now the [ESLint plugin available for VSCode](https://marketplace.vis
 {
   "eslint.experimental.useFlatConfig": true
 }
-```
+````
 
 This enables the setting on a workspace-level, so when switching between projects the setting remains disabled for projects using the old config system. Also note that the `.mjs` and `.cjs` extensions may not get picked up correctly, so your config file should always be called `eslint.config.js`.
 
-## Migrating from v2
+## Migrating from v3
 
-- Upgrade to at least `eslint@8.40.0`
-- Install `eslint-plugin-no-await-in-promise` or auto-install peerDeps
-- Switch from extending `"foxkit"` to `"foxkit/strict"`
-- Add `"plugin:react/jsx-runtime"` if needed
-- ignore paths are no longer set by default, add your own in a configuration or `.eslintignore` file
+- Install `eslint@8.57.0`
+- Install `typescript@~5.5.0`
+- `eslint-plugin-no-await-in-promise` as well as the [typescript-eslint] packages are now dependencies and can be removed from your own pkg json
+- Use the documentation above to adjust your configuration. Base configs are now supplied as objects again, a utility function for setting up [typescript-eslint] is provided separately as `configureTS` now.
+- The configs for React/Preact have not been updated, are marked as deprecated and will be removed in the next minor version!
+- TypeScript configs are now included in the base imports (`"foxkit"` for legacy `extends`, `eslint-config-foxkit/configs/base.js` for flat configs). The separate legacy configuration still exists and will be removed in the next minor version!
+- Astro support has been removed again. See instructions above for how to re-add support (or add support for any other framework such as Vue or Svelte).
 
 [Flat Config]: (https://eslint.org/docs/latest/use/configure/configuration-files-new)
 [typescript-eslint]: (https://typescript-eslint.io/)
