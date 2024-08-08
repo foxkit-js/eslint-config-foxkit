@@ -1,5 +1,8 @@
-const { baseRules, recommendedRules } = require("./rules/typescript");
+const tsRules = require("./rules/typescript");
 
+/**
+ * @deprecated
+ */
 module.exports = {
   plugins: ["@typescript-eslint"],
   overrides: [
@@ -10,7 +13,7 @@ module.exports = {
         sourceType: "module",
         warnOnUnsupportedTypeScriptVersion: true
       },
-      rules: Object.assign({}, baseRules, recommendedRules)
+      rules: Object.assign({}, tsRules)
     }
   ]
 };
