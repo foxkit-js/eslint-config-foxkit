@@ -96,16 +96,7 @@ function buildCJS(entryPoints) {
   return esbuild.build({
     ...config,
     entryPoints,
-    format: "cjs",
-    footer: {
-      /**
-       * This is required for interoperability with default exports
-       * @see https://github.com/evanw/esbuild/issues/1182#issuecomment-1011414271
-       * Feel free to remove this if you are not using default exports
-       * and this is causing problems
-       */
-      js: "if (module.exports.default) module.exports = module.exports.default"
-    }
+    format: "cjs"
   });
 }
 

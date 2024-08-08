@@ -33,4 +33,4 @@ if (process.env.npm_package_type === "module") {
   config.parserOptions.sourceType = "module";
 }
 
-module.exports.default = config;
+module.exports = config;
