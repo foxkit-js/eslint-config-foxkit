@@ -7,6 +7,6 @@ module.exports = [
     files: ["**/*.?(c)js"],
     languageOptions: { sourceType: "commonjs" }
   },
-  foxkit.configure(),
+  foxkit.base,
   prettier
 ];
