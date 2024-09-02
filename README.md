@@ -128,16 +128,22 @@ As of right now the [ESLint plugin available for VSCode](https://marketplace.vis
 
 This enables the setting on a workspace-level, so when switching between projects the setting remains disabled for projects using the old config system. Also note that the `.mjs` and `.cjs` extensions may not get picked up correctly, so your config file should always be called `eslint.config.js`.
 
+## See also
+
+- [eslint-config-foxkit-react]: Our base configurations for React/Preact development
+
 ## Migrating from v3
 
 - Install `eslint@8.57.0` or `eslint@^9`
 - Install `typescript@~5.5.0`
 - `eslint-plugin-no-await-in-promise` as well as the [typescript-eslint] packages are now dependencies and can be removed from your own pkg json
 - Use the documentation above to adjust your configuration. Base configs are now supplied as objects again, a utility function for setting up [typescript-eslint] is provided separately as `configureTS` now.
-- The configs for React/Preact have not been updated, are marked as deprecated and will be removed in the next minor version!
-- TypeScript configs are now included in the base imports (`"foxkit"` for legacy `extends`, `eslint-config-foxkit/configs/base.js` for flat configs). The separate legacy configuration still exists and will be removed in the next minor version!
+- Non-strict configurations have been removed and are no longer available.
+- The configs for React/Preact have moved to [eslint-config-foxkit-react] which must be set up separately now.
+- TypeScript configs are now included in the base imports (`"foxkit"` for legacy `extends`, `eslint-config-foxkit/configs/base.js` for flat configs).
 - Astro support has been removed again. See instructions above for how to re-add support (or add support for any other framework such as Vue or Svelte).
 
 [Flat Config]: (https://eslint.org/docs/latest/use/configure/configuration-files-new)
 [typescript-eslint]: (https://typescript-eslint.io/)
 [prettier]: (https://www.npmjs.com/package/eslint-config-prettier)
+[eslint-config-foxkit-react]: (https://github.com/foxkit-js/eslint-config-foxkit-react)
