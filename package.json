@@ -6,7 +6,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mitsunee/eslint-config-foxkit.git"
+    "url": "git+https://github.com/foxkit-js/eslint-config-foxkit.git"
   },
   "author": "Mitsunee",
   "license": "MIT",
