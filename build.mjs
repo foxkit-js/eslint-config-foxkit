@@ -108,7 +108,8 @@ async function build() {
   const dirs = await Promise.all([
     discoverDirectory("src"),
     discoverDirectory("src/configs"),
-    discoverDirectory("src/rules")
+    discoverDirectory("src/rules"),
+    discoverDirectory("src/legacy")
   ]);
   const entryPoints = dirs.flat();
 
