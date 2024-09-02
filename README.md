@@ -10,6 +10,8 @@ Install with your package manager of choice:
 pnpm add --save-dev eslint-config-foxkit eslint@8.57.0 typescript
 ```
 
+**Note**: You can also install ESlint v9, but this version may not yet be supported by other Foxkit configs.
+
 ## Usage with Flat Configuration System
 
 Add a [Flat Config] in your project like this:
@@ -128,7 +130,7 @@ This enables the setting on a workspace-level, so when switching between project
 
 ## Migrating from v3
 
-- Install `eslint@8.57.0`
+- Install `eslint@8.57.0` or `eslint@^9`
 - Install `typescript@~5.5.0`
 - `eslint-plugin-no-await-in-promise` as well as the [typescript-eslint] packages are now dependencies and can be removed from your own pkg json
 - Use the documentation above to adjust your configuration. Base configs are now supplied as objects again, a utility function for setting up [typescript-eslint] is provided separately as `configureTS` now.

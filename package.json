@@ -54,13 +54,13 @@
     "@eslint/js": "^8.57.0",
     "@typescript-eslint/eslint-plugin": "~8.3.0",
     "@typescript-eslint/parser": "~8.3.0",
-    "eslint": "8.57.0",
     "eslint-plugin-no-await-in-promise": "^2.0.1",
     "globals": "^15.9.0"
   },
   "devDependencies": {
     "clean-publish": "^5.0.0",
     "esbuild": "^0.23.1",
+    "eslint": "8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-react": "^7.35.0",
@@ -71,6 +71,7 @@
     "typescript": "~5.5.4"
   },
   "peerDependencies": {
+    "eslint": "8.57.0 || 9",
     "typescript": "~5.5.0"
   }
 }

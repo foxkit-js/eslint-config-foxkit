@@ -17,9 +17,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: ~8.3.0
         version: 8.3.0(eslint@8.57.0)(typescript@5.5.4)
-      eslint:
-        specifier: 8.57.0
-        version: 8.57.0
       eslint-plugin-no-await-in-promise:
         specifier: ^2.0.1
         version: 2.0.1(eslint@8.57.0)
@@ -33,6 +30,9 @@ importers:
       esbuild:
         specifier: ^0.23.1
         version: 0.23.1
+      eslint:
+        specifier: 8.57.0
+        version: 8.57.0
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.0)
