@@ -96,13 +96,14 @@ module.exports = {
 
 ```js
 const foxkitOverrides = require("eslint-config-foxkit/legacy/overrides");
-foxkitOverrides.typescript.files.push("**/*.astro");
+const foxkitTS = foxkitOverrides.typescript;
+foxkitTS.files.push("**/*.astro");
 
 module.exports = {
   extends: ["foxkit"],
   overrides: [
     {
-      files: ["**/*.ts?(x)", "**/*.astro"],
+      files: foxkitTS.files,
       parserOptions: {
         project: true,
         tsconfigRootDir: __dirname
