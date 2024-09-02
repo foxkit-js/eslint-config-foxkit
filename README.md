@@ -92,23 +92,25 @@ module.exports = {
 };
 ```
 
-**Note**: Should you need to add a filetype to the typescript override you can import the config and search for the override using the [typescript-eslint] parser:
+**Note**: Should you need to add a file extension to the typescript override you can import it directly:
 
-````js
-const foxkit = require("eslint-config-foxkit");
-
-const foxkitTS = foxkit.overrides.find(override => override.parser == "@typescript-eslint/parser");
-foxkitTS.files.push("**/*.astro");
+```js
+const foxkitOverrides = require("eslint-config-foxkit/legacy/overrides");
+foxkitOverrides.typescript.files.push("**/*.astro");
 
 module.exports = {
   extends: ["foxkit"],
   overrides: [
     {
-      // see above
+      files: ["**/*.ts?(x)", "**/*.astro"],
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: __dirname
+      }
     },
-    foxkitTS // re-insert patched version of the override
+    foxkitOverrides.typescript // re-insert patched version of the override
   ]
-}
+};
 ```
 
 ## Note for VSCode
@@ -119,7 +121,7 @@ As of right now the [ESLint plugin available for VSCode](https://marketplace.vis
 {
   "eslint.experimental.useFlatConfig": true
 }
-````
+```
 
 This enables the setting on a workspace-level, so when switching between projects the setting remains disabled for projects using the old config system. Also note that the `.mjs` and `.cjs` extensions may not get picked up correctly, so your config file should always be called `eslint.config.js`.
 

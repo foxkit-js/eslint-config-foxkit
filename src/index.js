@@ -1,5 +1,5 @@
 const baseRules = require("./rules/base");
-const tsRules = require("./rules/typescript");
+const overrides = require("./legacy/overrides");
 
 const config = {
   plugins: ["no-await-in-promise", "@typescript-eslint"],
@@ -7,25 +7,9 @@ const config = {
   env: { node: true, es2023: true },
   rules: baseRules,
   overrides: [
-    {
-      files: ["**/*.cjs"],
-      parserOptions: { sourceType: "script" },
-      rules: baseRules
-    },
-    {
-      files: ["**/*.mjs"],
-      parserOptions: { sourceType: "module" },
-      rules: baseRules
-    },
-    {
-      files: ["**/*.ts?(x)"],
-      parser: "@typescript-eslint/parser",
-      parserOptions: {
-        sourceType: "module",
-        warnOnUnsupportedTypeScriptVersion: true
-      },
-      rules: Object.assign({}, tsRules)
-    }
+    overrides["enable-cjs"],
+    overrides["enable-mjs"],
+    overrides.typescript
   ]
 };
 
