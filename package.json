@@ -50,13 +50,13 @@
   },
   "dependencies": {
     "@eslint/js": "^8.57.0",
-    "@typescript-eslint/eslint-plugin": "~8.3.0",
-    "@typescript-eslint/parser": "~8.3.0",
+    "@typescript-eslint/eslint-plugin": "~8.8.0",
+    "@typescript-eslint/parser": "~8.8.0",
     "eslint-plugin-no-await-in-promise": "^2.0.1",
-    "globals": "^15.9.0"
+    "globals": "^15.10.0"
   },
   "devDependencies": {
-    "esbuild": "^0.23.1",
+    "esbuild": "^0.24.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "nano-staged": "^0.8.0",
