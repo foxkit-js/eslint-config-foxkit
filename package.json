@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-foxkit",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "ESlint 9 compatible Configurations",
   "type": "commonjs",
   "main": "src/index.js",
