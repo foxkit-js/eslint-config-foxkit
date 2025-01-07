@@ -1,10 +1,12 @@
 const promisePlugin = require("eslint-plugin-no-await-in-promise");
 const globals = require("globals");
-const tsPlugin = require("@typescript-eslint/eslint-plugin");
-const tsParser = require("@typescript-eslint/parser");
+const tseslint = require("typescript-eslint");
 const baseRules = require("../rules/base.js");
 const tsRules = require("../rules/typescript.js");
 
+/**
+ * Array of extensions used for typescript files by default
+ */
 const tsFiles = ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"];
 
 module.exports = {
@@ -32,10 +34,10 @@ module.exports = {
   typescript: {
     files: tsFiles,
     plugins: {
-      "@typescript-eslint": tsPlugin
+      "@typescript-eslint": tseslint.plugin
     },
     languageOptions: {
-      parser: tsParser,
+      parser: tseslint.parser,
       parserOptions: {
         sourceType: "module",
         warnOnUnsupportedTypeScriptVersion: true
@@ -50,17 +52,18 @@ module.exports = {
     const parserOptions = {};
     if (!project && !tsconfigRootDir) {
       throw new Error(
-        "Must set either project or tsconfigRootDir in foxkitTS.configure"
+        "Must set either project or tsconfigRootDir property in foxkit.configureTS"
       );
     }
 
     if (tsconfigRootDir) {
-      parserOptions.project = true;
+      parserOptions.projectService = true;
       parserOptions.tsconfigRootDir = tsconfigRootDir;
     }
 
     if (project) parserOptions.project = project;
 
     return { files: tsFiles, languageOptions: { parserOptions } };
-  }
+  },
+  tsFiles
 };

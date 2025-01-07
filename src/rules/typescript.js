@@ -1,7 +1,5 @@
-const tsPlugin = require("@typescript-eslint/eslint-plugin");
-
-const [eslintRecommended] = tsPlugin.configs["eslint-recommended"].overrides;
-const tsRecommended = tsPlugin.configs.recommended;
+const tsPlugin = require("typescript-eslint");
+const [_base, eslintRecommended, tsRecommended] = tsPlugin.configs.recommended;
 
 /**
  * Base Ruleset for TypeScript development (extends typescript-eslint's
@@ -47,6 +45,7 @@ module.exports = Object.assign(
     "@typescript-eslint/no-mixed-enums": "error",
     "no-throw-literal": "off",
     // "@typescript-eslint/no-throw-literal": "error", // removed in v8
+    "@typescript-eslint/no-throw-literal": "off",
     //"@typescript-eslint/no-unnecessary-condition": "warn",
     "@typescript-eslint/no-unnecessary-condition": "off", // see https://github.com/typescript-eslint/typescript-eslint/issues/6926
     "@typescript-eslint/no-unsafe-declaration-merging": "error",
