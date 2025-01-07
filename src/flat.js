@@ -1,8 +1,8 @@
 const promisePlugin = require("eslint-plugin-no-await-in-promise");
 const globals = require("globals");
 const tseslint = require("typescript-eslint");
-const baseRules = require("../rules/base.js");
-const tsRules = require("../rules/typescript.js");
+const baseRules = require("./rules/base.js");
+const tsRules = require("./rules/typescript.js");
 
 /**
  * Array of extensions used for typescript files by default

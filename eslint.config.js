@@ -1,4 +1,4 @@
-const foxkit = require("./src/configs/base");
+const foxkit = require("./src/flat");
 const prettier = require("eslint-config-prettier");
 
 console.log("Linting with Flat config");
