@@ -7,25 +7,22 @@ This package contains an opinionated set of base configs for ESLint and [typescr
 Install with your package manager of choice:
 
 ```bash
-pnpm add --save-dev eslint-config-foxkit eslint@8.57.0 typescript
+pnpm add --save-dev eslint-config-foxkit eslint @eslint/js typescript@~5.7
 ```
 
-**Note**: You can also install ESlint v9, but this version may not yet be supported by other Foxkit configs.
+**Note**: To use ESLint v8 please install `eslint@8.57.0 @eslint/js@8.57.1`. Support for v8 will be dropped in the future when required for updating any dependencies of this configuration package.
 
 ## Usage with Flat Configuration System
 
 Add a [Flat Config] in your project like this:
 
 ```js
-import foxkit from "eslint-config-foxkit/configs/base.js";
-
-// This line is only required in ES Module projects:
-const __dirname = new URL(".", import.meta.url).pathname.slice(0, -1);
+import foxkit from "eslint-config-foxkit/flat.js";
 
 export default [
   foxkit.base,
   foxkit.typescript,
-  foxkit.configureTS({ tsconfigRootDir: __dirname })
+  foxkit.configureTS({ tsconfigRootDir: import.meta.dirname })
 ];
 ```
 
@@ -33,15 +30,39 @@ You may also add other configs on top, such as [prettier], as well as your own o
 
 ### Usage in CommonJS projects
 
-If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named "eslint.config.mjs"). If this is the case use `require("eslint-config-foxkit/configs/base")` instead.
+If your project does not set `"type": "module"` in package.json your config will be CommonJS instead (unless explicitly named `"eslint.config.mjs"`). If this is the case use `require("eslint-config-foxkit/flat")` instead.
 
 ```js
-const foxkit = require("eslint-config-foxkit/configs/base");
+const foxkit = require("eslint-config-foxkit/flat");
 
 module.exports = [
   foxkit.base,
   foxkit.typescript,
   foxkit.configureTS({ tsconfigRootDir: __dirname })
+];
+```
+
+### Extending base configs
+
+You can use `tsEslint.config` to extend the base configs, for example to add the file extensions for a framework like Astro:
+
+```js
+import foxkit from "eslint-config-foxkit/flat.js";
+import tsEslint from "typescript-eslint";
+
+const foxkitTS = tsEslint.config({
+  files: foxkit.tsFiles.concat("**/*.astro"),
+  extends: [
+    foxkit.typescript,
+    foxkit.configureTS({ tsconfigRootDir: import.meta.dirname })
+  ],
+  languageOptions: { parserOptions: { extraFileExtensions: [".astro"] } }
+});
+
+export default [
+  foxkit.base,
+  // spread is required here as tsEslint.config returns an array!
+  ...foxkitTS
 ];
 ```
 
@@ -52,7 +73,7 @@ Alternatively you can access the rulesets by importing from `eslint-config-foxki
 ```js
 import framework from "@framework/eslint-config";
 import * as promisePlugin from "eslint-plugin-no-await-in-promise";
-import foxkit from "eslint-config-foxkit/configs/base.js";
+import foxkit from "eslint-config-foxkit/flat.js";
 import foxkitRules from "eslint-config-foxkit/rules/base.js";
 
 // This line is only required in ES Module projects:
@@ -69,13 +90,9 @@ export default [
 ];
 ```
 
-**Note**: If you are using a framework such as Astro or Svelte you may want to push the extension to the config object (this change is synced with the output from `foxkitConfigureTS`):
-
-```js
-foxkit.typescript.files.push("**/*.astro");
-```
-
 ## Usage with the Legacy Configuration System
+
+**Note**: The [Legacy Config] System will be removed in ESLint v10. Support it will be dropped when ESLint v8 is no longer supported!
 
 Simply add `"foxkit"` to your extends array in your `.eslintrc.cjs` file and set up the parserOptions for [typescript-eslint]:
 
@@ -135,15 +152,16 @@ This enables the setting on a workspace-level, so when switching between project
 ## Migrating from v3
 
 - Install `eslint@8.57.0` or `eslint@^9` and matching version of `@eslint/js`
-- Install `typescript@~5.5.0`
-- `eslint-plugin-no-await-in-promise` as well as the [typescript-eslint] packages are now dependencies and can be removed from your own pkg json
+- Install `typescript@~5.7`
+- `eslint-plugin-no-await-in-promise` as well as the [typescript-eslint] packages are now dependencies and can be removed from your own `package.json`
 - Use the documentation above to adjust your configuration. Base configs are now supplied as objects again, a utility function for setting up [typescript-eslint] is provided separately as `configureTS` now.
 - Non-strict configurations have been removed and are no longer available.
 - The configs for React/Preact have moved to [eslint-config-foxkit-react] which must be set up separately now.
-- TypeScript configs are now included in the base imports (`"foxkit"` for legacy `extends`, `eslint-config-foxkit/configs/base.js` for flat configs).
+- TypeScript configs are now included in the base imports (`"foxkit"` for legacy `extends`, `eslint-config-foxkit/flat.js` for flat configs).
 - Astro support has been removed again. See instructions above for how to re-add support (or add support for any other framework such as Vue or Svelte).
 
 [Flat Config]: (https://eslint.org/docs/latest/use/configure/configuration-files-new)
+[Legacy Config]: (https://eslint.org/docs/latest/use/configure/configuration-files-deprecated)
 [typescript-eslint]: (https://typescript-eslint.io/)
 [prettier]: (https://www.npmjs.com/package/eslint-config-prettier)
 [eslint-config-foxkit-react]: (https://github.com/foxkit-js/eslint-config-foxkit-react)
