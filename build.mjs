@@ -107,7 +107,6 @@ async function build() {
   console.log("Discovering source files");
   const dirs = await Promise.all([
     discoverDirectory("src"),
-    discoverDirectory("src/configs"),
     discoverDirectory("src/rules"),
     discoverDirectory("src/legacy")
   ]);
