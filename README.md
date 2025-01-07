@@ -149,6 +149,11 @@ This enables the setting on a workspace-level, so when switching between project
 
 - [eslint-config-foxkit-react]: Our base configurations for React/Preact development
 
+## Migrating from v4
+
+- The import path for [Flat Config]s has changed to `"eslint-config-foxkit/flat.js"`
+- TypeScript-ESLint dependency has been changed to the `typescript-eslint` package, as such a cleaner way to extend base configs is now available (see [Extending base configs](#extending-base-configs))
+
 ## Migrating from v3
 
 - Install `eslint@8.57.0` or `eslint@^9` and matching version of `@eslint/js`
