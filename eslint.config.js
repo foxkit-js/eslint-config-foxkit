@@ -1,7 +1,7 @@
-const foxkit = require("./src/configs/base");
 const prettier = require("eslint-config-prettier");
+const foxkit = require("./src/flat");
 
-console.log("Linting with Flat config");
+console.log("Linting with Flat config (cjs)");
 
 module.exports = [
   { ignores: ["dist/**"] },

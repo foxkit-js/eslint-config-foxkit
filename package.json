@@ -14,8 +14,10 @@
     "prepare": "simple-git-hooks",
     "format": "prettier -w .",
     "format:check": "prettier -c .",
-    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c eslint.config.js .",
-    "lint:strict": "ESLINT_USE_FLAT_CONFIG=true eslint -c eslint.config.js --max-warnings=0 .",
+    "lint": "eslint .",
+    "lint:strict": "eslint --max-warnings=0 .",
+    "lint:mjs": "eslint -c eslint.config.mjs",
+    "lint:mjs:strict": "eslint -c eslint.config.mjs --max-warnings=0 .",
     "lint:legacy": "ESLINT_USE_FLAT_CONFIG=false eslint -c eslintrc.js .",
     "lint:legacy:strict": "ESLINT_USE_FLAT_CONFIG=false eslint -c eslintrc.js --max-warnings=0 .",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
@@ -31,7 +33,6 @@
   },
   "files": [
     "*.js",
-    "configs",
     "legacy",
     "rules",
     "LICENSE"
@@ -49,10 +50,9 @@
     "main": "index.js"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "~8.19.1",
-    "@typescript-eslint/parser": "~8.19.1",
     "eslint-plugin-no-await-in-promise": "^2.0.1",
-    "globals": "^15.14.0"
+    "globals": "^15.14.0",
+    "typescript-eslint": "^8.19.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
