@@ -47,21 +47,23 @@ module.exports = {
   },
   /**
    * Utility to configure typescript-eslint parserOptions
+   * @param {import("@typescript-eslint/parser").ParserOptions} parserOptions
+   * @returns {import("typescript-eslint").ConfigArray[0]}
    */
-  configureTS({ project, tsconfigRootDir } = {}) {
-    const parserOptions = {};
-    if (!project && !tsconfigRootDir) {
+  configureTS(parserOptions) {
+    const hasProjectPath =
+      typeof parserOptions.project == "string" ||
+      typeof parserOptions.tsconfigRootDir == "string";
+
+    if (!hasProjectPath) {
       throw new Error(
-        "Must set either project or tsconfigRootDir property in foxkit.configureTS"
+        "Must set either tsconfigRootDir or project with path in foxkit.configureTS"
       );
     }
 
-    if (tsconfigRootDir) {
-      parserOptions.projectService = true;
-      parserOptions.tsconfigRootDir = tsconfigRootDir;
+    if (parserOptions.tsconfigRootDir && !parserOptions.project) {
+      parserOptions.projectService ||= true;
     }
-
-    if (project) parserOptions.project = project;
 
     return { files: tsFiles, languageOptions: { parserOptions } };
   },
