@@ -54,9 +54,11 @@ const foxkitTS = tsEslint.config({
   files: foxkit.tsFiles.concat("**/*.astro"),
   extends: [
     foxkit.typescript,
-    foxkit.configureTS({ tsconfigRootDir: import.meta.dirname })
-  ],
-  languageOptions: { parserOptions: { extraFileExtensions: [".astro"] } }
+    foxkit.configureTS({
+      tsconfigRootDir: import.meta.dirname,
+      extraFileExtensions: [".astro"]
+    })
+  ]
 });
 
 export default [
