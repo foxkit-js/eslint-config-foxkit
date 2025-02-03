@@ -52,6 +52,7 @@ module.exports = Object.assign(
     "@typescript-eslint/no-unsafe-declaration-merging": "error",
     "@typescript-eslint/non-nullable-type-assertion-style": "warn",
     "@typescript-eslint/prefer-function-type": "warn",
-    "@typescript-eslint/unified-signatures": "warn"
+    "@typescript-eslint/unified-signatures": "warn",
+    "@typescript-eslint/no-misused-spread": "error"
   }
 );
