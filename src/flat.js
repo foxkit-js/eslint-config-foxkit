@@ -1,3 +1,4 @@
+// @ts-check
 const promisePlugin = require("eslint-plugin-no-await-in-promise");
 const globals = require("globals");
 const tseslint = require("typescript-eslint");
@@ -12,6 +13,7 @@ const tsFiles = ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"];
 module.exports = {
   /**
    * Base Configuration for JavaScript developement
+   * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}
    */
   base: {
     plugins: {
@@ -30,6 +32,7 @@ module.exports = {
   },
   /**
    * Base Configuration for TypeScript development
+   * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}
    */
   typescript: {
     files: tsFiles,

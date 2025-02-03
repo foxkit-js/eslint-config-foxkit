@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "module": "ESNext",
     "target": "ES2022",
     "lib": ["ESNext", "DOM"],
     "strict": true,
     "noEmit": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowJs": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "**/*.js"],
   "exclude": ["node_modules", "dist"]
 }

@@ -4,6 +4,7 @@ const [_base, eslintRecommended, tsRecommended] = tsPlugin.configs.recommended;
 /**
  * Base Ruleset for TypeScript development (extends typescript-eslint's
  * recommendations)
+ * @type {import("@typescript-eslint/utils").TSESLint.FlatConfig.Rules}
  */
 module.exports = Object.assign(
   {},

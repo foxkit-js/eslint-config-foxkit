@@ -3,6 +3,7 @@ const eslint = require("@eslint/js");
 /**
  * Base Ruleset for JavaScript Development (also contains eslint's recommended
  * rules from the `@eslint/js` package)
+ * @type {import("@typescript-eslint/utils").TSESLint.FlatConfig.Rules}
  */
 module.exports = Object.assign({}, eslint.configs.recommended.rules, {
   "no-unused-vars": ["warn", { varsIgnorePattern: "^_+" }],
