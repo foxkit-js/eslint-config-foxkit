@@ -141,7 +141,7 @@ As of right now the [ESLint plugin available for VSCode](https://marketplace.vis
 
 ```json
 {
-  "eslint.experimental.useFlatConfig": true
+  "eslint.useFlatConfig": true
 }
 ```
 
