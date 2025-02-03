@@ -16,6 +16,7 @@ module.exports = {
    * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}
    */
   base: {
+    name: "@foxkit/base",
     plugins: {
       "no-await-in-promise": promisePlugin
     },
@@ -35,6 +36,7 @@ module.exports = {
    * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}
    */
   typescript: {
+    name: "@foxkit/typescript",
     files: tsFiles,
     plugins: {
       "@typescript-eslint": tseslint.plugin
@@ -51,7 +53,7 @@ module.exports = {
   /**
    * Utility to configure typescript-eslint parserOptions
    * @param {import("@typescript-eslint/parser").ParserOptions} parserOptions
-   * @returns {import("typescript-eslint").ConfigArray[0]}
+   * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}
    */
   configureTS(parserOptions) {
     const hasProjectPath =
@@ -68,7 +70,11 @@ module.exports = {
       parserOptions.projectService ||= true;
     }
 
-    return { files: tsFiles, languageOptions: { parserOptions } };
+    return {
+      name: "@foxkit/ts-parserOptions",
+      files: tsFiles,
+      languageOptions: { parserOptions }
+    };
   },
   tsFiles
 };
