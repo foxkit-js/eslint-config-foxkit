@@ -147,6 +147,15 @@ As of right now the [ESLint plugin available for VSCode](https://marketplace.vis
 
 This enables the setting on a workspace-level, so when switching between projects the setting remains disabled for projects using the old config system. Also note that the `.mjs` and `.cjs` extensions may not get picked up correctly, so your config file should always be called `eslint.config.js`.
 
+## Note for pnpm
+
+As of pnpm v10 there are issues with accessing subdependencies, such as `typescript-eslint` (a dependency of this config package). If you are experiencing problems with ESLint or TypeScript being unable to find subdependencies try adding the following options to your `.npmrc` file:
+
+```ini
+auto-install-peers=true
+node-linker=hoisted
+```
+
 ## See also
 
 - [eslint-config-foxkit-react]: Our base configurations for React/Preact development
