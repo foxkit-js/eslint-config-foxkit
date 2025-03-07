@@ -21,7 +21,7 @@ module.exports = {
       "no-await-in-promise": promisePlugin
     },
     languageOptions: {
-      ecmaVersion: 2023,
+      ecmaVersion: 2024,
       globals: Object.assign(
         {},
         globals.nodeBuiltin,
