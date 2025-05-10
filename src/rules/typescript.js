@@ -45,8 +45,7 @@ module.exports = Object.assign(
     "@typescript-eslint/no-meaningless-void-operator": "error",
     "@typescript-eslint/no-mixed-enums": "error",
     "no-throw-literal": "off",
-    // "@typescript-eslint/no-throw-literal": "error", // removed in v8
-    "@typescript-eslint/no-throw-literal": "off",
+    "@typescript-eslint/only-throw-error": ["error", { allowRethrowing: true }],
     //"@typescript-eslint/no-unnecessary-condition": "warn",
     "@typescript-eslint/no-unnecessary-condition": "off", // see https://github.com/typescript-eslint/typescript-eslint/issues/6926
     "@typescript-eslint/no-unsafe-declaration-merging": "error",
