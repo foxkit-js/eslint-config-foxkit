@@ -48,7 +48,6 @@ module.exports = Object.assign(
     "@typescript-eslint/only-throw-error": ["error", { allowRethrowing: true }],
     "prefer-promise-reject-errors": "off",
     "@typescript-eslint/prefer-promise-reject-errors": "warn",
-    "@typescript-eslint/no-unnecessary-condition": "warn",
     "@typescript-eslint/no-unsafe-declaration-merging": "error",
     "@typescript-eslint/non-nullable-type-assertion-style": "warn",
     "@typescript-eslint/prefer-function-type": "warn",
